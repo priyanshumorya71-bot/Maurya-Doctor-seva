@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://maurya-doctor-seva-108.vercel.app/sitemap.xml
