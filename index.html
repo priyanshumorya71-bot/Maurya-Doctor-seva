@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAURYA DOCTOR SEVA-स्वास्थ्य सेवा</title>
+    <title>Doctor Appointment System - स्वास्थ्य सेवा</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -350,17 +350,23 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .doctor-card:hover .doctor-image img {
+            transform: scale(1.05);
         }
 
         .doctor-number {
             position: absolute;
             bottom: 10px;
             right: 10px;
-            background-color: rgba(139, 69, 19, 0.8);
+            background-color: rgba(139, 69, 19, 0.9);
             color: white;
-            padding: 5px 10px;
+            padding: 8px 12px;
             border-radius: 5px;
             font-size: 14px;
+            font-weight: 600;
         }
 
         .doctor-info {
@@ -423,10 +429,57 @@
             transition: background-color 0.3s;
             text-align: center;
             text-decoration: none;
+            margin-top: 10px;
         }
 
         .appointment-btn:hover {
             background-color: #6b3610;
+        }
+
+        .whatsapp-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            background-color: #25d366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #1da851;
+        }
+
+        .call-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .call-btn:hover {
+            background-color: #388E3C;
         }
 
         /* Doctor Details Modal */
@@ -513,6 +566,22 @@
             border-bottom: 1px solid #eaeff4;
         }
 
+        .location-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary-color);
+            text-decoration: none;
+            padding: 8px 15px;
+            background-color: #e8f4ff;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .location-link:hover {
+            background-color: #d4e9ff;
+        }
+
         /* Patient Info Form */
         .patient-form {
             background-color: #f8fafc;
@@ -581,29 +650,6 @@
             margin-bottom: 20px;
         }
 
-        .whatsapp-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 12px;
-            background-color: #25d366;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            width: 100%;
-            margin-top: 20px;
-            text-decoration: none;
-        }
-
-        .whatsapp-btn:hover {
-            background-color: #1da851;
-        }
-    
         /* Advertisement */
         .ad-container {
             background-color: white;
@@ -724,7 +770,27 @@
                 </div>
                 <button class="login-btn" id="loginSubmitBtn">लॉगिन</button>
                 <p style="text-align: center; margin-top: 15px; color: var(--gray-color);">
-                    टेस्ट अकाउंट: 98******10 / पासवर्ड: 123**6
+                    टेस्ट अकाउंट: 9876543210 / पासवर्ड: 123456
+                </p>
+            </div>
+            
+            <div class="login-form" id="registerForm">
+                <h3 class="form-title">नया अकाउंट बनाएं</h3>
+                <div class="form-group">
+                    <label class="form-label">पूरा नाम</label>
+                    <input type="text" class="form-input" id="registerName" placeholder="आपका पूरा नाम">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">मोबाइल नंबर</label>
+                    <input type="text" class=form-input" id="loginId" placeholder="मोबाइल नंबर या ईमेल दर्ज करें">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">पासवर्ड</label>
+                    <input type="password" class="form-input" id="loginPassword" placeholder="पासवर्ड दर्ज करें">
+                </div>
+                <button class="login-btn" id="loginSubmitBtn">लॉगिन</button>
+                <p style="text-align: center; margin-top: 15px; color: var(--gray-color);">
+                    टेस्ट अकाउंट: 9876543210 / पासवर्ड: 123456
                 </p>
             </div>
             
@@ -751,7 +817,7 @@
         </div>
     </div>
 
-    <!-- Header Section -->
+    <!-- Main Header -->
     <header style="display: none;" id="mainHeader">
         <div class="container header-container">
             <div class="logo">
@@ -761,21 +827,19 @@
             
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-bar" placeholder="डॉक्टर, विशेषज्ञता, या रोग खोजें...">
+                <input type="text" class="search-bar" placeholder="डॉक्टर, विशेषता या रोग के नाम से खोजें...">
             </div>
             
             <div class="user-info" id="userInfo">
                 <i class="fas fa-user-circle"></i>
-                <span class="user-name" id="userName">गेस्ट यूज़र</span>
-                <i class="fas fa-chevron-down"></i>
+                <span class="user-name" id="userName">अतिथि</span>
             </div>
         </div>
     </header>
 
     <!-- Categories Section -->
-    <section class="categories" style="display: none;" id="categoriesSection">
+    <section class="categories" id="categoriesSection" style="display: none;">
         <div class="container categories-container">
-            <!-- District Category -->
             <div class="category-box">
                 <div class="category-title" id="districtToggle">
                     <h3><i class="fas fa-map-marker-alt"></i> जिला चुनें</h3>
@@ -784,44 +848,41 @@
                 <div class="dropdown-list" id="districtList">
                     <div class="dropdown-item" data-district="all">सभी जिले</div>
                     <div class="dropdown-item" data-district="siwan">सिवान</div>
-                    <div class="dropdown-item" data-district="mairva">मैरवा</div>
-                    <div class="dropdown-item" data-district="gopalganj">गोपालगंज</div>
                     <div class="dropdown-item" data-district="mirganj">मीरगंज</div>
                     <div class="dropdown-item" data-district="chhapra">छपरा</div>
-                    <div class="dropdown-item" data-district="lucknow">लखनऊ</div>
+                    <div class="dropdown-item" data-district="kanpur">कानपुर</div>
                     <div class="dropdown-item" data-district="patna">पटना</div>
-                    <div class="dropdown-item" data-district="gorakhpur">गोरखपुर</div>
+                    <div class="dropdown-item" data-district="gopalganj">गोपालगंज</div>
+                    <div class="dropdown-item" data-district="Gorakhpur">गोरखपुर</div>
                 </div>
             </div>
-
-            <!-- Specialization Category -->
+            
             <div class="category-box">
                 <div class="category-title" id="specialtyToggle">
-                    <h3><i class="fas fa-user-md"></i> विशेषज्ञता</h3>
+                    <h3><i class="fas fa-user-md"></i> विशेषता चुनें</h3>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="dropdown-list" id="specialtyList">
                     <div class="dropdown-item" data-specialty="all">सभी विशेषज्ञ</div>
                     <div class="dropdown-item" data-specialty="cardiologist">हृदय रोग विशेषज्ञ</div>
-                    <div class="dropdown-item" data-specialty="orthopedic">अस्थि रोग विशेषज्ञ</div>
-                    <div class="dropdown-item" data-specialty="pediatrician">बाल रोग विशेषज्ञ</div>
-                    <div class="dropdown-item" data-specialty="neurologist">न्यूरोलॉजिस्ट</div>
-                    <div class="dropdown-item" data-specialty="dermatologist">त्वचा रोग विशेषज्ञ</div>
                     <div class="dropdown-item" data-specialty="gynecologist">स्त्री रोग विशेषज्ञ</div>
+                    <div class="dropdown-item" data-specialty="pediatrician">बाल रोग विशेषज्ञ</div>
+                    <div class="dropdown-item" data-specialty="orthopedic">आर्थोपेडिक सर्जन</div>
+                    <div class="dropdown-item" data-specialty="eye-specialist">आँखों के डॉक्टर</div>
+                    <div class="dropdown-item" data-specialty="dermatologist">त्वचा रोग विशेषज्ञ</div>
                 </div>
             </div>
-
-            <!-- Fee Category -->
+            
             <div class="category-box">
                 <div class="category-title" id="feeToggle">
-                    <h3><i class="fas fa-rupee-sign"></i> फीस रेंज</h3>
+                    <h3><i class="fas fa-rupee-sign"></i> फीस चुनें</h3>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="dropdown-list" id="feeList">
                     <div class="dropdown-item" data-fee="all">सभी फीस</div>
                     <div class="dropdown-item" data-fee="0-200">₹0 - ₹200</div>
-                    <div class="dropdown-item" data-fee="200-300">₹200 - ₹300</div>
-                    <div class="dropdown-item" data-fee="300-500">₹300 - ₹500</div>
+                    <div class="dropdown-item" data-fee="201-300">₹201 - ₹300</div>
+                    <div class="dropdown-item" data-fee="401-500">₹401 - ₹500</div>
                     <div class="dropdown-item" data-fee="500+">₹500+</div>
                 </div>
             </div>
@@ -829,149 +890,165 @@
     </section>
 
     <!-- Main Content -->
-    <div class="container" style="display: none;" id="mainContent">
-        <!-- Doctors List -->
-        <h2 class="section-title">उपलब्ध डॉक्टर</h2>
+    <main class="container" id="mainContent" style="display: none;">
+        <h2 class="section-title">उपलब्ध डॉक्टर्स</h2>
+        
         <div class="doctors-grid" id="doctorsGrid">
-            <!-- Doctors will be dynamically inserted here -->
+            <!-- Doctors will be loaded here -->
         </div>
-
-        <!-- Advertisement Section -->
+        
+        <!-- Advertisement -->
         <div class="ad-container">
             <div class="ad-placeholder">
-                <h3>विज्ञापन स्थान</h3>
-                <p>यहाँ आपकी विज्ञापन दिखाई देगी</p>
-                <p>विज्ञापन के लिए संपर्क करें: ads@mauryadoctorseva.com</p>
+                <h3>Advertisement</h3>
+                <p>यहाँ आपका विज्ञापन हो सकता है</p>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Doctor Details Modal -->
     <div class="modal" id="doctorModal">
         <div class="modal-content">
-            <div class="close-modal" id="closeModal">&times;</div>
+            <span class="close-modal" id="closeModal">&times;</span>
             <div class="modal-body" id="modalBody">
-                <!-- Modal content will be dynamically inserted here -->
+                <!-- Doctor details will be loaded here -->
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer style="display: none;" id="mainFooter">
+    <footer id="mainFooter" style="display: none;">
         <div class="container footer-container">
             <div class="footer-column">
                 <h3>MAURYA DOCTOR SEVA</h3>
-                <p>भारत का सबसे विश्वसनीय डॉक्टर अपॉइंटमेंट प्लेटफॉर्म। स्वास्थ्य सेवाएं आपके दरवाजे पर।</p>
+                <p>आपकी स्वास्थ्य सेवाओं का विश्वसनीय साथी। 24x7 ऑनलाइन अपॉइंटमेंट और चिकित्सा सलाह।</p>
             </div>
             <div class="footer-column">
-                <h3>जल्दी लिंक</h3>
+                <h3>त्वरित लिंक</h3>
                 <ul class="footer-links">
-                    <li><a href="#">होम</a></li>
                     <li><a href="#">डॉक्टर ढूंढें</a></li>
-                    <li><a href="#">अपॉइंटमेंट</a></li>
-                    <li><a href="#">सहायता</a></li>
+                    <li><a href="#">अपॉइंटमेंट बुक करें</a></li>
+                    <li><a href="#">आपातकालीन सेवाएं</a></li>
+                    <li><a href="#">चिकित्सा सलाह</a></li>
                 </ul>
             </div>
             <div class="footer-column">
-                <h3>संपर्क</h3>
+                <h3>संपर्क करें</h3>
                 <ul class="footer-links">
-                    <li><i class="fas fa-phone"></i> +91 7643806356</li>
-                    <li><i class="fas fa-envelope"></i> support@mauryadoctorseva.com</li>
-                    <li><i class="fas fa-map-marker-alt"></i> बिहार, भारत</li>
+                    <li><i class="fas fa-phone"></i> हेल्पलाइन: +917643806356</li>
+                    <li><i class="fas fa-envelope"></i> ईमेल: support@mauryadoctorseva.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> मुख्य कार्यालय: पचुरुखी भवानी मोड(सिवान),बिहार</li>
                 </ul>
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; 2023 MAURYA DOCTOR SEVA. सभी अधिकार सुरक्षित।</p>
+            &copy; 2024 MAURYA DOCTOR SEVA. सर्वाधिकार सुरक्षित।
         </div>
     </footer>
 
     <script>
-        // Sample Doctors Data with Photos and Display Numbers
-        const doctors = [
+        // Doctors Data with WhatsApp Numbers and Google Maps Links
+        let doctors = [
             {
-                id: 1,
-                name: "डॉ. राजेश शर्मा",
+                name: "डॉ. राजेश कुमार",
                 specialty: "हृदय रोग विशेषज्ञ",
-                district: "delhi",
+                district: "lucknow",
                 experience: "15 वर्ष",
-                fees: 800,
-                address: "एम्स, नई दिल्ली",
-                description: "हृदय रोगों में विशेषज्ञ, 5000+ सफल ऑपरेशन। सोम-शनि, 10 AM - 6 PM",
-                availability: "सोम-शनि, 10 AM - 6 PM",
+                fees: 500,
+                address: "सिबिया अस्पताल, गोमती नगर, लखनऊ",
+                mapLink: "https://maps.google.com/?q=26.8467,80.9462",
+                description: "हृदय रोग और उच्च रक्तचाप विशेषज्ञ। 15+ वर्षों का अनुभव। PCI, एंजियोप्लास्टी विशेषज्ञ। सोम-शनि, 10 AM - 5 PM",
+                availability: "सोम-शनि, 10 AM - 5 PM",
+                education: "MBBS, MD (Cardiology), AIIMS दिल्ली",
+                languages: "हिंदी, अंग्रेजी, उर्दू",
                 photo: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop",
-                number: "+91 98765 43210" // Display only
+                number: "+91 98765 43210",
+                whatsapp: "919876543210"
             },
             {
-                id: 2,
-                name: "डॉ. प्रिया सिंह",
+                name: "डॉ. प्रिया शर्मा",
                 specialty: "स्त्री रोग विशेषज्ञ",
-                district: "mumbai",
+                district: "kanpur",
                 experience: "12 वर्ष",
-                fees: 1200,
-                address: "कोकिलाबेन हॉस्पिटल, मुंबई",
-                description: "महिला स्वास्थ्य और प्रसूति विशेषज्ञ। सोम-शुक्र, 9 AM - 5 PM",
-                availability: "सोम-शुक्र, 9 AM - 5 PM",
-                photo: "https://images.unsplash.com/photo-1594824434340-7e7dfc37cabb?w=400&h=400&fit=crop",
-                number: "+91 98765 43211" // Display only
-            },
-            {
-                id: 3,
-                name: "डॉ. अमित वर्मा",
-                specialty: "अस्थि रोग विशेषज्ञ",
-                district: "bangalore",
-                experience: "18 वर्ष",
-                fees: 1500,
-                address: "अपोलो हॉस्पिटल, बैंगलोर",
-                description: "जोड़ और हड्डी रोग विशेषज्ञ। सोम-शनि, 11 AM - 7 PM",
-                availability: "सोम-शनि, 11 AM - 7 PM",
-                photo: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w-400&h=400&fit=crop",
-                number: "+91 98765 43212" // Display only
-            },
-            {
-                id: 4,
-                name: "डॉ. सुमन गुप्ता",
-                specialty: "बाल रोग विशेषज्ञ",
-                district: "kolkata",
-                experience: "10 वर्ष",
                 fees: 600,
-                address: "बीसी रॉय हॉस्पिटल, कोलकाता",
-                description: "बच्चों के स्वास्थ्य और रोग विशेषज्ञ। सोम-शुक्र, 10 AM - 4 PM",
-                availability: "सोम-शुक्र, 10 AM - 4 PM",
+                address: "मेडिकल कॉलेज, स्वरूप नगर, कानपुर",
+                mapLink: "https://maps.google.com/?q=26.4499,80.3319",
+                description: "स्त्री रोग और प्रसूति विशेषज्ञ। लेप्रोस्कोपिक सर्जरी, हाई रिस्क प्रेग्नेंसी विशेषज्ञ। सोम-शुक्र, 9 AM - 4 PM",
+                availability: "सोम-शुक्र, 9 AM - 4 PM",
+                education: "MBBS, MS (Obstetrics & Gynecology), KGMU",
+                languages: "हिंदी, अंग्रेजी",
                 photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop",
-                number: "+91 98765 43213" // Display only
+                number: "+91 98765 43211",
+                whatsapp: "919876543211"
             },
             {
-                id: 5,
-                name: "डॉ. रवि कुमार",
-                specialty: "न्यूरोलॉजिस्ट",
-                district: "chennai",
-                experience: "20 वर्ष",
-                fees: 2000,
-                address: "मद्रास मेडिकल कॉलेज, चेन्नई",
-                description: "मस्तिष्क और तंत्रिका तंत्र रोग विशेषज्ञ। सोम-शनि, 9 AM - 5 PM",
-                availability: "सोम-शनि, 9 AM - 5 PM",
+                name: "डॉ. अमित सिंह",
+                specialty: "बाल रोग विशेषज्ञ",
+                district: "varanasi",
+                experience: "10 वर्ष",
+                fees: 400,
+                address: "बीएचयू अस्पताल, काशी, वाराणसी",
+                mapLink: "https://maps.google.com/?q=25.3176,82.9739",
+                description: "बच्चों के रोग और टीकाकरण विशेषज्ञ। नवजात देखभाल, बाल स्वास्थ्य विशेषज्ञ। सोम-रवि, 11 AM - 7 PM",
+                availability: "सोम-रवि, 11 AM - 7 PM",
+                education: "MBBS, DCH, MD (Pediatrics), BHU",
+                languages: "हिंदी, अंग्रेजी, भोजपुरी",
                 photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop",
-                number: "+91 98765 43214" // Display only
+                number: "+91 98765 43212",
+                whatsapp: "919876543212"
             },
             {
-                id: 6,
+                name: "डॉ. सुनील वर्मा",
+                specialty: "आर्थोपेडिक सर्जन",
+                district: "lucknow",
+                experience: "18 वर्ष",
+                fees: 800,
+                address: "चिकित्सा विश्वविद्यालय, हज़रतगंज, लखनऊ",
+                mapLink: "https://maps.google.com/?q=26.8467,80.9462",
+                description: "हड्डी और जोड़ों के रोग विशेषज्ञ। आर्थ्रोस्कोपिक सर्जरी, जॉइंट रिप्लेसमेंट विशेषज्ञ। सोम-शनि, 8 AM - 2 PM",
+                availability: "सोम-शनि, 8 AM - 2 PM",
+                education: "MBBS, MS (Orthopedics), MCh",
+                languages: "हिंदी, अंग्रेजी",
+                photo: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=400&fit=crop",
+                number: "+91 98765 43213",
+                whatsapp: "919876543213"
+            },
+            {
+                name: "डॉ. मीनाक्षी अग्रवाल",
+                specialty: "आँखों के डॉक्टर",
+                district: "kanpur",
+                experience: "14 वर्ष",
+                fees: 450,
+                address: "नेत्र चिकित्सालय, गोविंद नगर, कानपुर",
+                mapLink: "https://maps.google.com/?q=26.4499,80.3319",
+                description: "नेत्र रोग और लेसिक सर्जरी विशेषज्ञ। कैटरैक्ट सर्जरी, ग्लूकोमा विशेषज्ञ। मंगल-शनि, 10 AM - 6 PM",
+                availability: "मंगल-शनि, 10 AM - 6 PM",
+                education: "MBBS, MS (Ophthalmology), DOMS",
+                languages: "हिंदी, अंग्रेजी",
+                photo: "https://images.unsplash.com/photo-1594824434340-7e7dfc37cabb?w=400&h=400&fit=crop",
+                number: "+91 98765 43214",
+                whatsapp: "919876543214"
+            },
+            {
                 name: "डॉ. नीतू यादव",
                 specialty: "त्वचा रोग विशेषज्ञ",
                 district: "lucknow",
                 experience: "8 वर्ष",
                 fees: 700,
-                address: "सिविल हॉस्पिटल, लखनऊ",
-                description: "त्वचा रोग और कॉस्मेटिक उपचार विशेषज्ञ। बुध-रवि, 12 PM - 8 PM",
+                address: "सिविल हॉस्पिटल, चारबाग, लखनऊ",
+                mapLink: "https://maps.google.com/?q=26.8467,80.9462",
+                description: "त्वचा रोग और कॉस्मेटिक उपचार विशेषज्ञ। लेजर थेरेपी, एक्ने ट्रीटमेंट विशेषज्ञ। बुध-रवि, 12 PM - 8 PM",
                 availability: "बुध-रवि, 12 PM - 8 PM",
+                education: "MBBS, MD (Dermatology), Venereology & Leprosy",
+                languages: "हिंदी, अंग्रेजी",
                 photo: "https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=400&h=400&fit=crop",
-                number: "+91 98765 43215" // Display only
+                number: "+91 98765 43215",
+                whatsapp: "919876543215"
             }
         ];
 
-        // User data storage (in real app, this would be server-side)
+        // User data storage
         let users = JSON.parse(localStorage.getItem('mauryaDoctorSevaUsers')) || [
-            // Test account
             {
                 id: 1,
                 name: "टेस्ट यूज़र",
@@ -982,6 +1059,10 @@
         ];
 
         let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let selectedDistrict = "all";
+        let selectedSpecialty = "all";
+        let selectedFee = "all";
+        let searchTerm = "";
 
         // DOM Elements
         const loginModal = document.getElementById('loginModal');
@@ -1003,160 +1084,137 @@
         const userInfo = document.getElementById('userInfo');
         const userName = document.getElementById('userName');
 
-        // Login/Register elements
-        const loginTabs = document.querySelectorAll('.login-tab');
-        const loginForm = document.getElementById('loginForm');
-        const registerForm = document.getElementById('registerForm');
-        const loginSubmitBtn = document.getElementById('loginSubmitBtn');
-        const registerSubmitBtn = document.getElementById('registerSubmitBtn');
+        // Login/Register Tabs
+        document.querySelectorAll('.login-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // Update active tab
+                document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show corresponding form
+                document.querySelectorAll('.login-form').forEach(form => form.classList.remove('active'));
+                document.getElementById(`${tabId}Form`).classList.add('active');
+            });
+        });
 
-        // Variables
-        let selectedDoctor = null;
-        let selectedDistrict = 'all';
-        let selectedSpecialty = 'all';
-        let selectedFee = 'all';
-        let searchTerm = '';
-
-        // Check if user is already logged in
-        function checkLoginStatus() {
-            if (currentUser) {
-                // User is logged in, show main content
-                loginModal.style.display = 'none';
-                mainHeader.style.display = 'block';
-                categoriesSection.style.display = 'block';
-                mainContent.style.display = 'block';
-                mainFooter.style.display = 'block';
-                userName.textContent = currentUser.name;
-                displayDoctors(doctors);
-            } else {
-                // User is not logged in, show login modal
-                loginModal.style.display = 'flex';
+        // Login Functionality
+        document.getElementById('loginSubmitBtn').addEventListener('click', function() {
+            const loginId = document.getElementById('loginId').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!loginId || !password) {
+                alert("कृपया मोबाइल नंबर और पासवर्ड दर्ज करें");
+                return;
             }
-        }
-
-        // Initialize login functionality
-        function initializeLogin() {
-            // Tab switching
-            loginTabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const tabType = this.getAttribute('data-tab');
-                    
-                    // Update active tab
-                    loginTabs.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Show correct form
-                    if (tabType === 'login') {
-                        loginForm.classList.add('active');
-                        registerForm.classList.remove('active');
-                    } else {
-                        loginForm.classList.remove('active');
-                        registerForm.classList.add('active');
-                    }
-                });
-            });
-
-            // Login submit
-            loginSubmitBtn.addEventListener('click', function() {
-                const loginId = document.getElementById('loginId').value.trim();
-                const password = document.getElementById('loginPassword').value.trim();
-                
-                if (!loginId || !password) {
-                    alert('कृपया सभी फील्ड भरें');
-                    return;
-                }
-                
-                // Find user by mobile or email
-                const user = users.find(u => 
-                    u.mobile === loginId || u.email === loginId
-                );
-                
-                if (!user) {
-                    alert('यूज़र नहीं मिला। कृपया रजिस्टर करें।');
-                    return;
-                }
-                
-                if (user.password !== password) {
-                    alert('गलत पासवर्ड');
-                    return;
-                }
-                
-                // Login successful
+            
+            // Find user
+            const user = users.find(u => 
+                (u.mobile === loginId || u.email === loginId) && 
+                u.password === password
+            );
+            
+            if (user) {
                 currentUser = user;
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                checkLoginStatus();
-            });
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                loginModal.style.display = 'none';
+                showMainApp();
+            } else {
+                alert("गलत मोबाइल नंबर या पासवर्ड");
+            }
+        });
 
-            // Register submit
-            registerSubmitBtn.addEventListener('click', function() {
-                const name = document.getElementById('registerName').value.trim();
-                const mobile = document.getElementById('registerMobile').value.trim();
-                const email = document.getElementById('registerEmail').value.trim();
-                const password = document.getElementById('registerPassword').value.trim();
-                
-                if (!name || !mobile || !password) {
-                    alert('कृपया सभी आवश्यक फील्ड भरें');
-                    return;
-                }
-                
-                if (mobile.length !== 10) {
-                    alert('कृपया वैध 10 अंकों का मोबाइल नंबर दर्ज करें');
-                    return;
-                }
-                
-                // Check if mobile already exists
-                const existingUser = users.find(u => u.mobile === mobile);
-                if (existingUser) {
-                    alert('यह मोबाइल नंबर पहले से रजिस्टर है। कृपया लॉगिन करें।');
-                    return;
-                }
-                
-                // Create new user
-                const newUser = {
-                    id: users.length + 1,
-                    name: name,
-                    mobile: mobile,
-                    email: email || '',
-                    password: password
-                };
-                
-                users.push(newUser);
-                localStorage.setItem('mauryaDoctorSevaUsers', JSON.stringify(users));
-                
-                // Auto login
-                currentUser = newUser;
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                
-                alert('रजिस्ट्रेशन सफल! आप अब लॉग इन हैं।');
-                checkLoginStatus();
-            });
+        // Register Functionality
+        document.getElementById('registerSubmitBtn').addEventListener('click', function() {
+            const name = document.getElementById('registerName').value;
+            const mobile = document.getElementById('registerMobile').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            
+            if (!name || !mobile || !password) {
+                alert("कृपया नाम, मोबाइल नंबर और पासवर्ड दर्ज करें");
+                return;
+            }
+            
+            if (mobile.length !== 10 || isNaN(mobile)) {
+                alert("कृपया वैध 10 अंकों का मोबाइल नंबर दर्ज करें");
+                return;
+            }
+            
+            // Check if user already exists
+            const existingUser = users.find(u => u.mobile === mobile);
+            if (existingUser) {
+                alert("यह मोबाइल नंबर पहले से रजिस्टर है");
+                return;
+            }
+            
+            // Create new user
+            const newUser = {
+                id: users.length + 1,
+                name: name,
+                mobile: mobile,
+                email: email || `${mobile}@mauryadoctorseva.com`,
+                password: password
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('mauryaDoctorSevaUsers', JSON.stringify(users));
+            
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            
+            loginModal.style.display = 'none';
+            showMainApp();
+        });
 
-            // Logout functionality
-            userInfo.addEventListener('click', function() {
-                if (confirm('क्या आप लॉगआउट करना चाहते हैं?')) {
-                    currentUser = null;
-                    localStorage.removeItem('currentUser');
-                    location.reload();
-                }
-            });
+        // Show Main Application
+        function showMainApp() {
+            mainHeader.style.display = 'block';
+            categoriesSection.style.display = 'block';
+            mainContent.style.display = 'block';
+            mainFooter.style.display = 'block';
+            
+            userName.textContent = currentUser.name;
+            
+            // Display doctors
+            displayDoctors(doctors);
+            
+            // Setup event listeners
+            setupEventListeners();
         }
 
-        // Initial display of doctors
-        function displayDoctors(doctorsArray) {
+        // Display Doctors
+        function displayDoctors(doctorsList) {
             doctorsGrid.innerHTML = '';
             
-            doctorsArray.forEach(doctor => {
+            if (doctorsList.length === 0) {
+                doctorsGrid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                        <i class="fas fa-search" style="font-size: 48px; color: var(--gray-color); margin-bottom: 20px;"></i>
+                        <h3>कोई डॉक्टर नहीं मिला</h3>
+                        <p>कृपया अपने फिल्टर बदलें और फिर से खोजें</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            doctorsList.forEach(doctor => {
                 const doctorCard = document.createElement('div');
                 doctorCard.className = 'doctor-card';
+                doctorCard.setAttribute('data-doctor', JSON.stringify(doctor).replace(/'/g, "&apos;"));
+                
                 doctorCard.innerHTML = `
                     <div class="doctor-image">
-                        <img src="${doctor.photo}" alt="${doctor.name}">
-                        <div class="doctor-number">${doctor.number}</div>
+                        <img src="${doctor.photo}" alt="${doctor.name}" onerror="this.src='https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop'">
+                        <div class="doctor-number">
+                            <i class="fas fa-phone-alt"></i> ${doctor.number}
+                        </div>
                     </div>
                     <div class="doctor-info">
                         <h3 class="doctor-name">${doctor.name}</h3>
                         <div class="doctor-specialty">
-                            <i class="fas fa-stethoscope"></i> ${doctor.specialty}
+                            <i class="fas fa-user-md"></i> ${doctor.specialty}
                         </div>
                         <div class="doctor-details">
                             <div class="detail-item">
@@ -1164,372 +1222,407 @@
                                 <div class="detail-value">${doctor.experience}</div>
                             </div>
                             <div class="detail-item">
+                                <div class="detail-label">शहर</div>
+                                <div class="detail-value">${doctor.district}</div>
+                            </div>
+                            <div class="detail-item">
                                 <div class="detail-label">फीस</div>
                                 <div class="detail-value fees">₹${doctor.fees}</div>
                             </div>
                         </div>
-                        <button class="appointment-btn view-details" data-id="${doctor.id}">
-                            <i class="fas fa-calendar-check"></i> अपॉइंटमेंट लें
+                        <button class="appointment-btn book-appointment-btn">
+                            <i class="fas fa-calendar-check"></i> अपॉइंटमेंट बुक करें
                         </button>
                     </div>
                 `;
+                
                 doctorsGrid.appendChild(doctorCard);
             });
             
-            // Add event listeners to the new buttons
-            document.querySelectorAll('.view-details').forEach(button => {
-                button.addEventListener('click', function() {
-                    const doctorId = parseInt(this.getAttribute('data-id'));
-                    showDoctorDetails(doctorId);
+            // Add event listeners to appointment buttons
+            document.querySelectorAll('.book-appointment-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const doctorCard = this.closest('.doctor-card');
+                    const doctorData = JSON.parse(doctorCard.getAttribute('data-doctor').replace(/&apos;/g, "'"));
+                    showDoctorDetails(doctorData);
                 });
             });
         }
 
-        // Show doctor details in modal
-        function showDoctorDetails(id) {
-            selectedDoctor = doctors.find(d => d.id === id);
-            
+        // Show Doctor Details
+        function showDoctorDetails(doctor) {
             modalBody.innerHTML = `
                 <div class="doctor-header">
                     <div class="modal-doctor-image">
-                        <img src="${selectedDoctor.photo}" alt="${selectedDoctor.name}">
+                        <img src="${doctor.photo}" alt="${doctor.name}" onerror="this.src='https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop'">
                     </div>
                     <div class="modal-doctor-info">
-                        <h2 class="doctor-name">${selectedDoctor.name}</h2>
-                        <div class="doctor-specialty">
-                            <i class="fas fa-stethoscope"></i> ${selectedDoctor.specialty}
-                        </div>
-                        <div style="margin-top: 10px;">
-                            <i class="fas fa-phone"></i> <strong>${selectedDoctor.number}</strong> (दिखाने के लिए)
-                        </div>
-                        <div style="margin-top: 5px;">
-                            <i class="fas fa-map-marker-alt"></i> ${selectedDoctor.address}
-                        </div>
-                        <div style="margin-top: 5px;">
-                            <i class="fas fa-clock"></i> ${selectedDoctor.availability}
-                        </div>
+                        <h2>${doctor.name}</h2>
+                        <p><strong>${doctor.specialty}</strong></p>
+                        <p><i class="fas fa-map-marker-alt"></i> ${doctor.address}</p>
+                        <a href="${doctor.mapLink}" target="_blank" class="location-link">
+                            <i class="fas fa-directions"></i> Google Maps पर देखें
+                        </a>
+                        <p><i class="fas fa-clock"></i> उपलब्धता: ${doctor.availability}</p>
+                        <p><i class="fas fa-rupee-sign"></i> परामर्श शुल्क: ₹${doctor.fees}</p>
+                        <p><i class="fas fa-phone-alt"></i> फोन: ${doctor.number}</p>
                     </div>
                 </div>
                 
                 <div class="modal-section">
                     <h3>परिचय</h3>
-                    <p>${selectedDoctor.description}</p>
+                    <p>${doctor.description}</p>
                 </div>
                 
                 <div class="modal-section">
-                    <h3>फीस विवरण</h3>
-                    <p>परामर्श शुल्क: <strong>₹${selectedDoctor.fees}</strong></p>
+                    <h3>शिक्षा</h3>
+                    <p>${doctor.education}</p>
                 </div>
                 
                 <div class="modal-section">
-                    <h3>अपॉइंटमेंट लें</h3>
-                    <p>अपॉइंटमेंट बुक करने के लिए अपनी जानकारी दर्ज करें:</p>
-                    
-                    <div class="patient-form" id="patientForm">
+                    <h3>अनुभव</h3>
+                    <p>${doctor.experience} का अनुभव</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>भाषाएं</h3>
+                    <p>${doctor.languages}</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>अपॉइंटमेंट बुक करें</h3>
+                    <div class="patient-form" id="appointmentForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">रोगी का नाम *</label>
+                                <input type="text" class="form-input" id="patientName" placeholder="रोगी का पूरा नाम" value="${currentUser.name}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">उम्र *</label>
+                                <input type="number" class="form-input" id="patientAge" placeholder="उम्र" min="1" max="120">
+                            </div>
+                        </div>
+                        
                         <div class="form-group">
-                            <label class="form-label">मरीज का पूरा नाम *</label>
-                            <input type="text" class="form-input" id="patientName" placeholder="मरीज का पूरा नाम" value="${currentUser ? currentUser.name : ''}">
+                            <label class="form-label">लिंग *</label>
+                            <div class="gender-options">
+                                <div class="gender-option" data-value="male">
+                                    <i class="fas fa-male"></i>
+                                    <span>पुरुष</span>
+                                </div>
+                                <div class="gender-option" data-value="female">
+                                    <i class="fas fa-female"></i>
+                                    <span>महिला</span>
+                                </div>
+                                <div class="gender-option" data-value="other">
+                                    <i class="fas fa-user"></i>
+                                    <span>अन्य</span>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="form-row">
                             <div class="form-group">
-                                <label class="form-label">उम्र *</label>
-                                <input type="number" class="form-input" id="patientAge" placeholder="उम्र" min="0" max="120">
+                                <label class="form-label">मोबाइल नंबर *</label>
+                                <input type="text" class="form-input" id="patientMobile" placeholder="मोबाइल नंबर" value="${currentUser.mobile}">
                             </div>
                             <div class="form-group">
-                                <label class="form-label">लिंग *</label>
-                                <div class="gender-options">
-                                    <div class="gender-option" data-gender="male">
-                                        <i class="fas fa-male"></i>
-                                        <span>पुरुष</span>
-                                    </div>
-                                    <div class="gender-option" data-gender="female">
-                                        <i class="fas fa-female"></i>
-                                        <span>महिला</span>
-                                    </div>
-                                    <div class="gender-option" data-gender="other">
-                                        <i class="fas fa-user"></i>
-                                        <span>अन्य</span>
-                                    </div>
-                                </div>
-                                <input type="hidden" id="patientGender">
+                                <label class="form-label">अपॉइंटमेंट की तारीख *</label>
+                                <input type="date" class="form-input" id="appointmentDate">
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="form-label">मोबाइल नंबर *</label>
-                            <input type="text" class="form-input" id="patientMobile" placeholder="10 अंकों का मोबाइल नंबर" value="${currentUser ? currentUser.mobile : ''}">
+                            <label class="form-label">समय चुनें *</label>
+                            <select class="form-input" id="appointmentTime">
+                                <option value="">समय चुनें</option>
+                                <option value="09:00">09:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="14:00">02:00 PM</option>
+                                <option value="15:00">03:00 PM</option>
+                                <option value="16:00">04:00 PM</option>
+                                <option value="17:00">05:00 PM</option>
+                            </select>
                         </div>
                         
                         <div class="form-group">
-                            <label class="form-label">अपॉइंटमेंट के लिए नोट (वैकल्पिक)</label>
-                            <textarea class="form-input" id="appointmentNote" placeholder="लक्षण या विशेष नोट" rows="3"></textarea>
+                            <label class="form-label">लक्षण (वैकल्पिक)</label>
+                            <textarea class="form-input" id="symptoms" placeholder="आपके लक्षणों का विवरण" rows="3"></textarea>
                         </div>
                         
                         <button class="appointment-btn" id="submitAppointmentBtn">
-                            <i class="fas fa-calendar-check"></i> अपॉइंटमेंट कन्फर्म करें
+                            <i class="fas fa-paper-plane"></i> WhatsApp पर अपॉइंटमेंट भेजें
                         </button>
+                        
+                        <p style="text-align: center; margin-top: 15px; color: var(--gray-color); font-size: 14px;">
+                            <i class="fas fa-info-circle"></i> Appointment details डॉक्टर के WhatsApp पर भेजी जाएगी
+                        </p>
                     </div>
                     
-                    <!-- Success Message - Initially Hidden -->
                     <div class="success-message" id="successMessage">
                         <div class="success-icon">
                             <i class="fas fa-check-circle"></i>
                         </div>
-                        <h3>अपॉइंटमेंट सफलतापूर्वक बुक हो गया!</h3>
-                        <p>अपॉइंटमेंट कन्फर्मेशन विवरण नीचे दिए गए बटन पर क्लिक करके WhatsApp पर भेजें:</p>
-                        <p><strong>अपॉइंटमेंट आईडी:</strong> APPT${Date.now().toString().slice(-8)}</p>
+                        <h3>अपॉइंटमेंट विवरण तैयार है!</h3>
+                        <p>अब आप डॉक्टर को WhatsApp पर संदेश भेज सकते हैं।</p>
+                        <p>संदेश में आपका अपॉइंटमेंट विवरण पहले से भरा हुआ है।</p>
                         
-                        <a href="#" class="whatsapp-btn" id="whatsappSendBtn" target="_blank">
-                            <i class="fab fa-whatsapp"></i> WhatsApp पर अपॉइंटमेंट डिटेल्स भेजें
+                        <a href="#" target="_blank" class="whatsapp-btn" id="whatsappBtn">
+                            <i class="fab fa-whatsapp"></i> WhatsApp पर अपॉइंटमेंट भेजें
                         </a>
                         
-                        <button class="appointment-btn" style="margin-top: 15px;" onclick="window.location.reload()">
-                            <i class="fas fa-home"></i> होम पर वापस जाएं
+                        <a href="tel:${doctor.whatsapp}" class="call-btn" style="margin-top: 10px;">
+                            <i class="fas fa-phone"></i> सीधा कॉल करें: ${doctor.number}
+                        </a>
+                        
+                        <button class="appointment-btn" onclick="doctorModal.classList.remove('active')" style="margin-top: 20px; background-color: #6c757d;">
+                            <i class="fas fa-times"></i> बंद करें
                         </button>
                     </div>
                 </div>
             `;
             
-            // Initialize appointment form
-            initializeAppointmentForm();
-            
-            doctorModal.classList.add('active');
-        }
-
-        // Initialize appointment form
-        function initializeAppointmentForm() {
             // Gender selection
             document.querySelectorAll('.gender-option').forEach(option => {
                 option.addEventListener('click', function() {
-                    document.querySelectorAll('.gender-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
+                    document.querySelectorAll('.gender-option').forEach(o => o.classList.remove('selected'));
                     this.classList.add('selected');
-                    document.getElementById('patientGender').value = this.getAttribute('data-gender');
                 });
             });
             
-            // Submit appointment button
-            const submitBtn = document.getElementById('submitAppointmentBtn');
-            const whatsappBtn = document.getElementById('whatsappSendBtn');
+            // Set tomorrow's date as default
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const formattedDate = tomorrow.toISOString().split('T')[0];
+            const dateInput = document.getElementById('appointmentDate');
+            dateInput.value = formattedDate;
+            dateInput.min = formattedDate;
             
-            submitBtn.addEventListener('click', function() {
-                // Validate form
-                if (!validateAppointmentForm()) {
+            // Appointment form submission
+            const submitAppointmentBtn = document.getElementById('submitAppointmentBtn');
+            const appointmentForm = document.getElementById('appointmentForm');
+            const successMessage = document.getElementById('successMessage');
+            const whatsappBtn = document.getElementById('whatsappBtn');
+            
+            submitAppointmentBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const patientName = document.getElementById('patientName').value;
+                const patientAge = document.getElementById('patientAge').value;
+                const patientGender = document.querySelector('.gender-option.selected')?.getAttribute('data-value');
+                const patientMobile = document.getElementById('patientMobile').value;
+                const appointmentDate = document.getElementById('appointmentDate').value;
+                const appointmentTime = document.getElementById('appointmentTime').value;
+                const symptoms = document.getElementById('symptoms').value;
+                
+                if (!patientName || !patientAge || !patientGender || !patientMobile || !appointmentDate || !appointmentTime) {
+                    alert("कृपया सभी आवश्यक जानकारी भरें");
                     return;
                 }
                 
-                // Get form data
-                const patientName = document.getElementById('patientName').value.trim();
-                const patientAge = document.getElementById('patientAge').value;
-                const patientGender = document.getElementById('patientGender').value;
-                const patientMobile = document.getElementById('patientMobile').value.trim();
-                const appointmentNote = document.getElementById('appointmentNote').value.trim();
+                // Format date
+                const dateObj = new Date(appointmentDate);
+                const formattedDate = dateObj.toLocaleDateString('hi-IN', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
                 
-                // Generate appointment ID
-                const appointmentId = 'APPT' + Date.now().toString().slice(-8);
+                // Prepare WhatsApp message
+                let whatsappMessage = `नमस्ते डॉक्टर ${doctor.name},\n\nमैं ${patientName} अपॉइंटमेंट बुक करना चाहता/चाहती हूं।\n\nरोगी विवरण:\n- नाम: ${patientName}\n- उम्र: ${patientAge}\n- लिंग: ${patientGender}\n- मोबाइल: ${patientMobile}\n\nअपॉइंटमेंट समय:\n- तारीख: ${formattedDate}\n- समय: ${appointmentTime}\n`;
                 
-                // Save appointment to localStorage
-                const appointment = {
-                    id: appointmentId,
-                    doctorId: selectedDoctor.id,
-                    doctorName: selectedDoctor.name,
-                    doctorSpecialty: selectedDoctor.specialty,
-                    doctorFees: selectedDoctor.fees,
-                    doctorAddress: selectedDoctor.address,
-                    patientName: patientName,
-                    patientAge: patientAge,
-                    patientGender: patientGender,
-                    patientMobile: patientMobile,
-                    appointmentNote: appointmentNote,
-                    date: new Date().toLocaleDateString('hi-IN'),
-                    time: new Date().toLocaleTimeString('hi-IN'),
-                    userId: currentUser ? currentUser.id : null
-                };
-                
-                // Save to localStorage
-                let appointments = JSON.parse(localStorage.getItem('mauryaDoctorSevaAppointments')) || [];
-                appointments.push(appointment);
-                localStorage.setItem('mauryaDoctorSevaAppointments', JSON.stringify(appointments));
-                
-                // Create WhatsApp message
-                const whatsappMessage = encodeURIComponent(
-                    `नमस्ते, मुझे डॉ. ${selectedDoctor.name} से अपॉइंटमेंट चाहिए।\n\n` +
-                    `अपॉइंटमेंट डिटेल्स:\n` +
-                    `अपॉइंटमेंट आईडी: ${appointmentId}\n` +
-                    `डॉक्टर: ${selectedDoctor.name}\n` +
-                    `विशेषज्ञता: ${selectedDoctor.specialty}\n` +
-                    `फीस: ₹${selectedDoctor.fees}\n` +
-                    `पता: ${selectedDoctor.address}\n` +
-                    `डॉक्टर कांटेक्ट: ${selectedDoctor.number} (दिखाने के लिए)\n\n` +
-                    `मरीज की जानकारी:\n` +
-                    `नाम: ${patientName}\n` +
-                    `उम्र: ${patientAge} वर्ष\n` +
-                    `लिंग: ${patientGender === 'male' ? 'पुरुष' : patientGender === 'female' ? 'महिला' : 'अन्य'}\n` +
-                    `मोबाइल: ${patientMobile}\n` +
-                    `नोट: ${appointmentNote || 'कोई नोट नहीं'}\n\n` +
-                    `तारीख: ${appointment.date}\n` +
-                    `समय: ${appointment.time}`
-                );
-                
-                // Update WhatsApp button with message
-                whatsappBtn.href = `https://wa.me/917643806356?text=${whatsappMessage}`;
-                
-                // Show success message
-                document.getElementById('patientForm').style.display = 'none';
-                document.getElementById('successMessage').classList.add('active');
-            });
-        }
-
-        // Validate appointment form
-        function validateAppointmentForm() {
-            const patientName = document.getElementById('patientName').value.trim();
-            const patientAge = document.getElementById('patientAge').value;
-            const patientGender = document.getElementById('patientGender').value;
-            const patientMobile = document.getElementById('patientMobile').value.trim();
-            
-            if (!patientName) {
-                alert('कृपया मरीज का नाम दर्ज करें');
-                return false;
-            }
-            
-            if (!patientAge || patientAge < 0 || patientAge > 120) {
-                alert('कृपया वैध उम्र दर्ज करें (0-120)');
-                return false;
-            }
-            
-            if (!patientGender) {
-                alert('कृपया लिंग चुनें');
-                return false;
-            }
-            
-            if (!patientMobile || patientMobile.length !== 10) {
-                alert('कृपया वैध 10 अंकों का मोबाइल नंबर दर्ज करें');
-                return false;
-            }
-            
-            return true;
-        }
-
-        // Filter doctors based on selected criteria
-        function filterDoctors() {
-            let filtered = doctors.filter(doctor => {
-                // District filter
-                const districtMatch = selectedDistrict === 'all' || doctor.district === selectedDistrict;
-                
-                // Specialty filter
-                const specialtyMatch = selectedSpecialty === 'all' || doctor.specialty.includes(selectedSpecialty);
-                
-                // Fee filter
-                let feeMatch = true;
-                if (selectedFee !== 'all') {
-                    if (selectedFee === '0-200') feeMatch = doctor.fees <= 200;
-                    else if (selectedFee === '200-300') feeMatch = doctor.fees > 200 && doctor.fees <= 300;
-                    else if (selectedFee === '300-400') feeMatch = doctor.fees > 300 && doctor.fees <= 400;
-                    else if (selectedFee === '500+') feeMatch = doctor.fees > 500;
+                if (symptoms) {
+                    whatsappMessage += `\nलक्षण: ${symptoms}\n`;
                 }
                 
-                // Search filter
-                const searchMatch = searchTerm === '' || 
-                    doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    doctor.specialty.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    doctor.address.toLowerCase().includes(searchTerm.toLowerCase());
+                whatsappMessage += `\nकृपया इस अपॉइंटमेंट की पुष्टि करें।\n\nधन्यवाद।`;
                 
-                return districtMatch && specialtyMatch && feeMatch && searchMatch;
+                // Create WhatsApp link
+                const whatsappLink = `https://wa.me/${doctor.whatsapp}?text=${encodeURIComponent(whatsappMessage)}`;
+                
+                // Update WhatsApp button
+                whatsappBtn.href = whatsappLink;
+                whatsappBtn.target = "_blank";
+                
+                // Show success message
+                appointmentForm.style.display = 'none';
+                successMessage.classList.add('active');
+                
+                // Auto-click WhatsApp button after 2 seconds
+                setTimeout(() => {
+                    whatsappBtn.click();
+                }, 2000);
             });
             
-            displayDoctors(filtered);
+            // Show modal
+            doctorModal.classList.add('active');
         }
 
-        // Initialize everything
-        function initializeApp() {
-            checkLoginStatus();
-            initializeLogin();
+        // Filter Doctors
+        function filterDoctors() {
+            let filteredDoctors = [...doctors];
             
-            if (currentUser) {
-                // Initialize filters and doctors only if user is logged in
-                displayDoctors(doctors);
+            // Filter by district
+            if (selectedDistrict !== "all") {
+                filteredDoctors = filteredDoctors.filter(doctor => 
+                    doctor.district === selectedDistrict
+                );
+            }
+            
+            // Filter by specialty
+            if (selectedSpecialty !== "all") {
+                filteredDoctors = filteredDoctors.filter(doctor => 
+                    doctor.specialty.includes(selectedSpecialty.split('-')[0])
+                );
+            }
+            
+            // Filter by fee
+            if (selectedFee !== "all") {
+                const [min, max] = selectedFee.split('-').map(part => {
+                    if (part.endsWith('+')) {
+                        return parseInt(part) - 1;
+                    }
+                    return parseInt(part);
+                });
                 
-                // Toggle dropdowns
-                districtToggle.addEventListener('click', () => {
-                    districtList.classList.toggle('active');
-                    specialtyList.classList.remove('active');
-                    feeList.classList.remove('active');
-                });
+                if (selectedFee.endsWith('+')) {
+                    filteredDoctors = filteredDoctors.filter(doctor => 
+                        doctor.fees > max
+                    );
+                } else {
+                    filteredDoctors = filteredDoctors.filter(doctor => 
+                        doctor.fees >= min && doctor.fees <= max
+                    );
+                }
+            }
+            
+            // Filter by search term
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                filteredDoctors = filteredDoctors.filter(doctor => 
+                    doctor.name.toLowerCase().includes(term) ||
+                    doctor.specialty.toLowerCase().includes(term) ||
+                    doctor.district.toLowerCase().includes(term) ||
+                    doctor.address.toLowerCase().includes(term)
+                );
+            }
+            
+            displayDoctors(filteredDoctors);
+        }
 
-                specialtyToggle.addEventListener('click', () => {
-                    specialtyList.classList.toggle('active');
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Toggle dropdowns
+            districtToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                districtList.classList.toggle('active');
+                specialtyList.classList.remove('active');
+                feeList.classList.remove('active');
+            });
+
+            specialtyToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                specialtyList.classList.toggle('active');
+                districtList.classList.remove('active');
+                feeList.classList.remove('active');
+            });
+
+            feeToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                feeList.classList.toggle('active');
+                districtList.classList.remove('active');
+                specialtyList.classList.remove('active');
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', () => {
+                districtList.classList.remove('active');
+                specialtyList.classList.remove('active');
+                feeList.classList.remove('active');
+            });
+
+            // District selection
+            document.querySelectorAll('#districtList .dropdown-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    selectedDistrict = this.getAttribute('data-district');
+                    districtToggle.querySelector('h3').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${this.textContent}`;
                     districtList.classList.remove('active');
-                    feeList.classList.remove('active');
-                });
-
-                feeToggle.addEventListener('click', () => {
-                    feeList.classList.toggle('active');
-                    districtList.classList.remove('active');
-                    specialtyList.classList.remove('active');
-                });
-
-                // Close dropdowns when clicking outside
-                document.addEventListener('click', (e) => {
-                    if (!districtToggle.contains(e.target) && !districtList.contains(e.target)) {
-                        districtList.classList.remove('active');
-                    }
-                    if (!specialtyToggle.contains(e.target) && !specialtyList.contains(e.target)) {
-                        specialtyList.classList.remove('active');
-                    }
-                    if (!feeToggle.contains(e.target) && !feeList.contains(e.target)) {
-                        feeList.classList.remove('active');
-                    }
-                });
-
-                // District selection
-                document.querySelectorAll('#districtList .dropdown-item').forEach(item => {
-                    item.addEventListener('click', function() {
-                        selectedDistrict = this.getAttribute('data-district');
-                        districtToggle.querySelector('h3').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${this.textContent}`;
-                        districtList.classList.remove('active');
-                        filterDoctors();
-                    });
-                });
-
-                // Specialty selection
-                document.querySelectorAll('#specialtyList .dropdown-item').forEach(item => {
-                    item.addEventListener('click', function() {
-                        selectedSpecialty = this.getAttribute('data-specialty');
-                        specialtyToggle.querySelector('h3').innerHTML = `<i class="fas fa-user-md"></i> ${this.textContent}`;
-                        specialtyList.classList.remove('active');
-                        filterDoctors();
-                    });
-                });
-
-                // Fee selection
-                document.querySelectorAll('#feeList .dropdown-item').forEach(item => {
-                    item.addEventListener('click', function() {
-                        selectedFee = this.getAttribute('data-fee');
-                        feeToggle.querySelector('h3').innerHTML = `<i class="fas fa-rupee-sign"></i> ${this.textContent}`;
-                        feeList.classList.remove('active');
-                        filterDoctors();
-                    });
-                });
-
-                // Search functionality
-                searchBar.addEventListener('input', function() {
-                    searchTerm = this.value;
                     filterDoctors();
                 });
+            });
 
-                // Modal close functionality
-                closeModal.addEventListener('click', () => {
+            // Specialty selection
+            document.querySelectorAll('#specialtyList .dropdown-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    selectedSpecialty = this.getAttribute('data-specialty');
+                    specialtyToggle.querySelector('h3').innerHTML = `<i class="fas fa-user-md"></i> ${this.textContent}`;
+                    specialtyList.classList.remove('active');
+                    filterDoctors();
+                });
+            });
+
+            // Fee selection
+            document.querySelectorAll('#feeList .dropdown-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    selectedFee = this.getAttribute('data-fee');
+                    feeToggle.querySelector('h3').innerHTML = `<i class="fas fa-rupee-sign"></i> ${this.textContent}`;
+                    feeList.classList.remove('active');
+                    filterDoctors();
+                });
+            });
+
+            // Search functionality
+            searchBar.addEventListener('input', function() {
+                searchTerm = this.value.toLowerCase();
+                filterDoctors();
+            });
+
+            // Modal close functionality
+            closeModal.addEventListener('click', () => {
+                doctorModal.classList.remove('active');
+            });
+
+            // Close modal when clicking outside
+            doctorModal.addEventListener('click', (e) => {
+                if (e.target === doctorModal) {
                     doctorModal.classList.remove('active');
-                });
+                }
+            });
 
-                // Close modal when clicking outside
-                doctorModal.addEventListener('click', (e) => {
-                    if (e.target === doctorModal) {
-                        doctorModal.classList.remove('active');
-                    }
-                });
+            // Logout functionality
+            userInfo.addEventListener('click', function() {
+                if (confirm("क्या आप लॉगआउट करना चाहते हैं?")) {
+                    currentUser = null;
+                    localStorage.removeItem('currentUser');
+                    
+                    mainHeader.style.display = 'none';
+                    categoriesSection.style.display = 'none';
+                    mainContent.style.display = 'none';
+                    mainFooter.style.display = 'none';
+                    
+                    loginModal.style.display = 'flex';
+                    
+                    // Reset form
+                    document.getElementById('loginId').value = '';
+                    document.getElementById('loginPassword').value = '';
+                    document.getElementById('registerName').value = '';
+                    document.getElementById('registerMobile').value = '';
+                    document.getElementById('registerEmail').value = '';
+                    document.getElementById('registerPassword').value = '';
+                }
+            });
+        }
+
+        // Initialize App
+        function initializeApp() {
+            if (currentUser) {
+                loginModal.style.display = 'none';
+                showMainApp();
+            } else {
+                loginModal.style.display = 'flex';
             }
         }
 
