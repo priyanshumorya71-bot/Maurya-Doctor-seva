@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor Appointment System - स्वास्थ्य सेवा</title>
+    <title>MAURYA DOCTOR SEVA-स्वास्थ्य सेवा</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -724,7 +724,7 @@
                 </div>
                 <button class="login-btn" id="loginSubmitBtn">लॉगिन</button>
                 <p style="text-align: center; margin-top: 15px; color: var(--gray-color);">
-                    टेस्ट अकाउंट: 9876543210 / पासवर्ड: 123456
+                    टेस्ट अकाउंट: 98******10 / पासवर्ड: 123**6
                 </p>
             </div>
             
@@ -783,14 +783,14 @@
                 </div>
                 <div class="dropdown-list" id="districtList">
                     <div class="dropdown-item" data-district="all">सभी जिले</div>
-                    <div class="dropdown-item" data-district="delhi">दिल्ली</div>
-                    <div class="dropdown-item" data-district="mumbai">मुंबई</div>
-                    <div class="dropdown-item" data-district="bangalore">बैंगलोर</div>
-                    <div class="dropdown-item" data-district="kolkata">कोलकाता</div>
-                    <div class="dropdown-item" data-district="chennai">चेन्नई</div>
+                    <div class="dropdown-item" data-district="siwan">सिवान</div>
+                    <div class="dropdown-item" data-district="mairva">मैरवा</div>
+                    <div class="dropdown-item" data-district="gopalganj">गोपालगंज</div>
+                    <div class="dropdown-item" data-district="mirganj">मीरगंज</div>
+                    <div class="dropdown-item" data-district="chhapra">छपरा</div>
                     <div class="dropdown-item" data-district="lucknow">लखनऊ</div>
                     <div class="dropdown-item" data-district="patna">पटना</div>
-                    <div class="dropdown-item" data-district="jaipur">जयपुर</div>
+                    <div class="dropdown-item" data-district="gorakhpur">गोरखपुर</div>
                 </div>
             </div>
 
@@ -819,10 +819,10 @@
                 </div>
                 <div class="dropdown-list" id="feeList">
                     <div class="dropdown-item" data-fee="all">सभी फीस</div>
-                    <div class="dropdown-item" data-fee="0-500">₹0 - ₹500</div>
-                    <div class="dropdown-item" data-fee="500-1000">₹500 - ₹1000</div>
-                    <div class="dropdown-item" data-fee="1000-2000">₹1000 - ₹2000</div>
-                    <div class="dropdown-item" data-fee="2000+">₹2000+</div>
+                    <div class="dropdown-item" data-fee="0-200">₹0 - ₹200</div>
+                    <div class="dropdown-item" data-fee="200-300">₹200 - ₹300</div>
+                    <div class="dropdown-item" data-fee="300-500">₹300 - ₹500</div>
+                    <div class="dropdown-item" data-fee="500+">₹500+</div>
                 </div>
             </div>
         </div>
@@ -1424,10 +1424,10 @@
                 // Fee filter
                 let feeMatch = true;
                 if (selectedFee !== 'all') {
-                    if (selectedFee === '0-500') feeMatch = doctor.fees <= 500;
-                    else if (selectedFee === '500-1000') feeMatch = doctor.fees > 500 && doctor.fees <= 1000;
-                    else if (selectedFee === '1000-2000') feeMatch = doctor.fees > 1000 && doctor.fees <= 2000;
-                    else if (selectedFee === '2000+') feeMatch = doctor.fees > 2000;
+                    if (selectedFee === '0-200') feeMatch = doctor.fees <= 200;
+                    else if (selectedFee === '200-300') feeMatch = doctor.fees > 200 && doctor.fees <= 300;
+                    else if (selectedFee === '300-400') feeMatch = doctor.fees > 300 && doctor.fees <= 400;
+                    else if (selectedFee === '500+') feeMatch = doctor.fees > 500;
                 }
                 
                 // Search filter
