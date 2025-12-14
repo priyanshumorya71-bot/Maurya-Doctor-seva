@@ -26,6 +26,7 @@
             --dark-color: #2c1810; /* Dark Brown */
             --light-color: #f9f5f0; /* Light Beige */
             --gray-color: #a18d7a; /* Brown Gray */
+            --success-color: #28a745;
         }
 
         body {
@@ -39,114 +40,6 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
-        }
-
-        /* Login Modal */
-        .login-modal {
-            display: flex;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .login-content {
-            background-color: white;
-            border-radius: 15px;
-            max-width: 450px;
-            width: 100%;
-            position: relative;
-            animation: slideIn 0.3s;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(-30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .login-tabs {
-            display: flex;
-            border-bottom: 1px solid #eaeff4;
-        }
-
-        .login-tab {
-            flex: 1;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--gray-color);
-            transition: all 0.3s;
-        }
-
-        .login-tab.active {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-        }
-
-        .login-form {
-            padding: 30px;
-            display: none;
-        }
-
-        .login-form.active {
-            display: block;
-        }
-
-        .form-title {
-            margin-bottom: 25px;
-            color: var(--dark-color);
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark-color);
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #e3e6ef;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 14px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 10px;
-        }
-
-        .login-btn:hover {
-            background-color: #6b3610;
         }
 
         /* Header Styles */
@@ -242,7 +135,7 @@
             background-color: white;
             padding: 20px 0;
             border-bottom: 1px solid #eaeff4;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .categories-container {
@@ -285,6 +178,15 @@
             transition: transform 0.3s;
         }
 
+        .category-title.active {
+            border-color: var(--primary-color);
+            background-color: #f5ede6;
+        }
+
+        .category-title.active i {
+            transform: rotate(180deg);
+        }
+
         .dropdown-list {
             position: absolute;
             top: 100%;
@@ -310,10 +212,104 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .dropdown-item:hover {
             background-color: #f5ede6;
+        }
+
+        .dropdown-item.selected {
+            background-color: #f0e6dc;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .dropdown-item .check-icon {
+            color: var(--success-color);
+            display: none;
+        }
+
+        .dropdown-item.selected .check-icon {
+            display: inline;
+        }
+
+        /* Filter Status Bar */
+        .filter-status {
+            background-color: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border: 1px solid #eaeff4;
+        }
+
+        .filter-status-title {
+            font-weight: 600;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-tag {
+            background-color: #e8f4ff;
+            color: var(--secondary-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .filter-tag.district {
+            background-color: #f0e6dc;
+            color: var(--primary-color);
+        }
+
+        .filter-tag.city {
+            background-color: #e6f7e9;
+            color: var(--success-color);
+        }
+
+        .filter-tag.specialty {
+            background-color: #e8f4ff;
+            color: var(--secondary-color);
+        }
+
+        .filter-tag.fee {
+            background-color: #fff4e6;
+            color: #e67e22;
+        }
+
+        .clear-filters {
+            margin-left: auto;
+            background-color: #f8fafc;
+            color: var(--gray-color);
+            border: 1px solid #e3e6ef;
+            padding: 6px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .clear-filters:hover {
+            background-color: #f5ede6;
+            color: var(--primary-color);
+            border-color: var(--primary-color);
         }
 
         /* Doctors Grid */
@@ -321,6 +317,13 @@
             margin: 30px 0 20px;
             color: var(--dark-color);
             font-size: 24px;
+        }
+
+        .doctors-count {
+            color: var(--gray-color);
+            font-size: 16px;
+            margin-left: 10px;
+            font-weight: normal;
         }
 
         .doctors-grid {
@@ -753,79 +756,22 @@
                 flex-direction: column;
                 gap: 0;
             }
+            
+            .filter-status {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .clear-filters {
+                margin-left: 0;
+                align-self: flex-end;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Login Modal (Shows First) -->
-    <div class="login-modal" id="loginModal">
-        <div class="login-content">
-            <div class="login-tabs">
-                <div class="login-tab active" data-tab="login">लॉगिन</div>
-                <div class="login-tab" data-tab="register">रजिस्टर</div>
-            </div>
-            
-            <div class="login-form active" id="loginForm">
-                <h3 class="form-title">अपने अकाउंट में लॉगिन करें</h3>
-                <div class="form-group">
-                    <label class="form-label">मोबाइल नंबर या ईमेल</label>
-                    <input type="text" class="form-input" id="loginId" placeholder="मोबाइल नंबर या ईमेल दर्ज करें">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">पासवर्ड</label>
-                    <input type="password" class="form-input" id="loginPassword" placeholder="पासवर्ड दर्ज करें">
-                </div>
-                <button class="login-btn" id="loginSubmitBtn">लॉगिन</button>
-                <p style="text-align: center; margin-top: 15px; color: var(--gray-color);">
-                    टेस्ट अकाउंट: 9876543210 / पासवर्ड: 123456
-                </p>
-            </div>
-            
-            <div class="login-form" id="registerForm">
-                <h3 class="form-title">नया अकाउंट बनाएं</h3>
-                <div class="form-group">
-                    <label class="form-label">पूरा नाम</label>
-                    <input type="text" class="form-input" id="registerName" placeholder="आपका पूरा नाम">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">मोबाइल नंबर</label>
-                    <input type="text" class=form-input" id="loginId" placeholder="मोबाइल नंबर या ईमेल दर्ज करें">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">पासवर्ड</label>
-                    <input type="password" class="form-input" id="loginPassword" placeholder="पासवर्ड दर्ज करें">
-                </div>
-                <button class="login-btn" id="loginSubmitBtn">लॉगिन</button>
-                <p style="text-align: center; margin-top: 15px; color: var(--gray-color);">
-                    टेस्ट अकाउंट: 9876543210 / पासवर्ड: 123456
-                </p>
-            </div>
-            
-            <div class="login-form" id="registerForm">
-                <h3 class="form-title">नया अकाउंट बनाएं</h3>
-                <div class="form-group">
-                    <label class="form-label">पूरा नाम</label>
-                    <input type="text" class="form-input" id="registerName" placeholder="आपका पूरा नाम">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">मोबाइल नंबर</label>
-                    <input type="text" class="form-input" id="registerMobile" placeholder="10 अंकों का मोबाइल नंबर">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">ईमेल (वैकल्पिक)</label>
-                    <input type="email" class="form-input" id="registerEmail" placeholder="आपका ईमेल">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">पासवर्ड</label>
-                    <input type="password" class="form-input" id="registerPassword" placeholder="मजबूत पासवर्ड">
-                </div>
-                <button class="login-btn" id="registerSubmitBtn">रजिस्टर</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Main Header -->
-    <header style="display: none;" id="mainHeader">
+    <header id="mainHeader">
         <div class="container header-container">
             <div class="logo">
                 <i class="fas fa-stethoscope"></i>
@@ -839,13 +785,13 @@
             
             <div class="user-info" id="userInfo">
                 <i class="fas fa-user-circle"></i>
-                <span class="user-name" id="userName">अतिथि</span>
+                <span class="user-name" id="userName"></span>
             </div>
         </div>
     </header>
 
     <!-- Categories Section -->
-    <section class="categories" id="categoriesSection" style="display: none;">
+    <section class="categories" id="categoriesSection">
         <div class="container categories-container">
             <div class="category-box">
                 <div class="category-title" id="districtToggle">
@@ -853,14 +799,48 @@
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="dropdown-list" id="districtList">
-                    <div class="dropdown-item" data-district="all">सभी जिले</div>
-                    <div class="dropdown-item" data-district="siwan">सिवान</div>
-                    <div class="dropdown-item" data-district="mirganj">मीरगंज</div>
-                    <div class="dropdown-item" data-district="chhapra">छपरा</div>
-                    <div class="dropdown-item" data-district="kanpur">कानपुर</div>
-                    <div class="dropdown-item" data-district="patna">पटना</div>
-                    <div class="dropdown-item" data-district="gopalganj">गोपालगंज</div>
-                    <div class="dropdown-item" data-district="Gorakhpur">गोरखपुर</div>
+                    <div class="dropdown-item" data-district="all">
+                        <span>सभी जिले</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-district="siwan">
+                        <span>सिवान</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-district="mirganj">
+                        <span>मीरगंज</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-district="chhapra">
+                        <span>छपरा</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-district="kanpur">
+                        <span>कानपुर</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-district="patna">
+                        <span>पटना</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-district="gopalganj">
+                        <span>गोपालगंज</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-district="gorakhpur">
+                        <span>गोरखपुर</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-box">
+                <div class="category-title" id="cityToggle" style="opacity: 0.5; cursor: not-allowed;">
+                    <h3><i class="fas fa-city"></i> पहले जिला चुनें</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-list" id="cityList">
+                    <!-- City options will be dynamically loaded based on district selection -->
                 </div>
             </div>
             
@@ -870,13 +850,34 @@
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="dropdown-list" id="specialtyList">
-                    <div class="dropdown-item" data-specialty="all">सभी विशेषज्ञ</div>
-                    <div class="dropdown-item" data-specialty="cardiologist">हृदय रोग विशेषज्ञ</div>
-                    <div class="dropdown-item" data-specialty="gynecologist">स्त्री रोग विशेषज्ञ</div>
-                    <div class="dropdown-item" data-specialty="pediatrician">बाल रोग विशेषज्ञ</div>
-                    <div class="dropdown-item" data-specialty="orthopedic">आर्थोपेडिक सर्जन</div>
-                    <div class="dropdown-item" data-specialty="eye-specialist">आँखों के डॉक्टर</div>
-                    <div class="dropdown-item" data-specialty="dermatologist">त्वचा रोग विशेषज्ञ</div>
+                    <div class="dropdown-item" data-specialty="all">
+                        <span>सभी विशेषज्ञ</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-specialty="cardiologist">
+                        <span>हृदय रोग विशेषज्ञ</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-specialty="gynecologist">
+                        <span>स्त्री रोग विशेषज्ञ</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-specialty="pediatrician">
+                        <span>बाल रोग विशेषज्ञ</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-specialty="orthopedic">
+                        <span>आर्थोपेडिक सर्जन</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-specialty="eye-specialist">
+                        <span>आँखों के डॉक्टर</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-specialty="dermatologist">
+                        <span>त्वचा रोग विशेषज्ञ</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
                 </div>
             </div>
             
@@ -886,19 +887,64 @@
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="dropdown-list" id="feeList">
-                    <div class="dropdown-item" data-fee="all">सभी फीस</div>
-                    <div class="dropdown-item" data-fee="0-200">₹0 - ₹200</div>
-                    <div class="dropdown-item" data-fee="201-300">₹201 - ₹300</div>
-                    <div class="dropdown-item" data-fee="401-500">₹401 - ₹500</div>
-                    <div class="dropdown-item" data-fee="500+">₹500+</div>
+                    <div class="dropdown-item" data-fee="all">
+                        <span>सभी फीस</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-fee="0-200">
+                        <span>₹0 - ₹200</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-fee="201-300">
+                        <span>₹201 - ₹300</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-fee="401-500">
+                        <span>₹401 - ₹500</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                    <div class="dropdown-item" data-fee="500+">
+                        <span>₹500+</span>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Filter Status Bar -->
+    <div class="container">
+        <div class="filter-status" id="filterStatus">
+            <div class="filter-status-title">
+                <i class="fas fa-filter"></i>
+                <span>सक्रिय फिल्टर:</span>
+            </div>
+            <div class="filter-tags" id="filterTags">
+                <div class="filter-tag district">
+                    <span>जिला: सभी</span>
+                </div>
+                <div class="filter-tag city">
+                    <span>शहर: सभी</span>
+                </div>
+                <div class="filter-tag specialty">
+                    <span>विशेषता: सभी</span>
+                </div>
+                <div class="filter-tag fee">
+                    <span>फीस: सभी</span>
+                </div>
+            </div>
+            <button class="clear-filters" id="clearFilters">
+                <i class="fas fa-times"></i> सभी फिल्टर हटाएं
+            </button>
+        </div>
+    </div>
+
     <!-- Main Content -->
-    <main class="container" id="mainContent" style="display: none;">
-        <h2 class="section-title">उपलब्ध डॉक्टर्स</h2>
+    <main class="container" id="mainContent">
+        <h2 class="section-title">
+            उपलब्ध डॉक्टर्स
+            <span class="doctors-count" id="doctorsCount">(6 डॉक्टर्स)</span>
+        </h2>
         
         <div class="doctors-grid" id="doctorsGrid">
             <!-- Doctors will be loaded here -->
@@ -924,7 +970,7 @@
     </div>
 
     <!-- Footer -->
-    <footer id="mainFooter" style="display: none;">
+    <footer id="mainFooter">
         <div class="container footer-container">
             <div class="footer-column">
                 <h3>MAURYA DOCTOR SEVA</h3>
@@ -940,8 +986,8 @@
                 </ul>
             </div>
             <div class="footer-column">
-                <h4>बिहार का मौर्य काल फिर आएगा ।<h4>
-                    <h3>संपर्क करें</h3>
+                <h4>बिहार का मौर्य काल फिर आएगा ।</h4>
+                <h3>संपर्क करें</h3>
                 <ul class="footer-links">
                     <li><i class="fas fa-phone"></i> हेल्पलाइन: +917643806356</li>
                     <li><i class="fas fa-envelope"></i> ईमेल: support@mauryadoctorseva.com</li>
@@ -963,7 +1009,8 @@ You are not allowed to copy, distribute, or modify this code without written per
             {
                 name: "डॉ. राजेश कुमार",
                 specialty: "हृदय रोग विशेषज्ञ",
-                district: "lucknow",
+                district: "siwan",
+                city: "सीवान-नगर पालिका",
                 experience: "15 वर्ष",
                 fees: 500,
                 address: "सिबिया अस्पताल, गोमती नगर, लखनऊ",
@@ -980,6 +1027,7 @@ You are not allowed to copy, distribute, or modify this code without written per
                 name: "डॉ. प्रिया शर्मा",
                 specialty: "स्त्री रोग विशेषज्ञ",
                 district: "kanpur",
+                city: "कानपुर शहर",
                 experience: "12 वर्ष",
                 fees: 600,
                 address: "मेडिकल कॉलेज, स्वरूप नगर, कानपुर",
@@ -995,14 +1043,15 @@ You are not allowed to copy, distribute, or modify this code without written per
             {
                 name: "डॉ. अमित सिंह",
                 specialty: "बाल रोग विशेषज्ञ",
-                district: "varanasi",
+                district: "siwan",
+                city: "सहार",
                 experience: "10 वर्ष",
                 fees: 400,
-                address: "बीएचयू अस्पताल, काशी, वाराणसी",
-                mapLink: "https://maps.google.com/?q=25.3176,82.9739",
+                address: "सहार सामुदायिक स्वास्थ्य केंद्र, सहार, सिवान",
+                mapLink: "https://maps.google.com/?q=26.2,84.36",
                 description: "बच्चों के रोग और टीकाकरण विशेषज्ञ। नवजात देखभाल, बाल स्वास्थ्य विशेषज्ञ। सोम-रवि, 11 AM - 7 PM",
                 availability: "सोम-रवि, 11 AM - 7 PM",
-                education: "MBBS, DCH, MD (Pediatrics), BHU",
+                education: "MBBS, DCH, MD (Pediatrics), PMCH",
                 languages: "हिंदी, अंग्रेजी, भोजपुरी",
                 photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop",
                 number: "+91 98765 43212",
@@ -1011,11 +1060,12 @@ You are not allowed to copy, distribute, or modify this code without written per
             {
                 name: "डॉ. सुनील वर्मा",
                 specialty: "आर्थोपेडिक सर्जन",
-                district: "lucknow",
+                district: "siwan",
+                city: "आंदर",
                 experience: "18 वर्ष",
                 fees: 800,
-                address: "चिकित्सा विश्वविद्यालय, हज़रतगंज, लखनऊ",
-                mapLink: "https://maps.google.com/?q=26.8467,80.9462",
+                address: "आंदर प्राथमिक स्वास्थ्य केंद्र, आंदर, सिवान",
+                mapLink: "https://maps.google.com/?q=26.15,84.3",
                 description: "हड्डी और जोड़ों के रोग विशेषज्ञ। आर्थ्रोस्कोपिक सर्जरी, जॉइंट रिप्लेसमेंट विशेषज्ञ। सोम-शनि, 8 AM - 2 PM",
                 availability: "सोम-शनि, 8 AM - 2 PM",
                 education: "MBBS, MS (Orthopedics), MCh",
@@ -1027,11 +1077,12 @@ You are not allowed to copy, distribute, or modify this code without written per
             {
                 name: "डॉ. मीनाक्षी अग्रवाल",
                 specialty: "आँखों के डॉक्टर",
-                district: "kanpur",
+                district: "siwan",
+                city: "बसंतपुर",
                 experience: "14 वर्ष",
                 fees: 450,
-                address: "नेत्र चिकित्सालय, गोविंद नगर, कानपुर",
-                mapLink: "https://maps.google.com/?q=26.4499,80.3319",
+                address: "नेत्र चिकित्सालय, बसंतपुर, सिवान",
+                mapLink: "https://maps.google.com/?q=26.1,84.4",
                 description: "नेत्र रोग और लेसिक सर्जरी विशेषज्ञ। कैटरैक्ट सर्जरी, ग्लूकोमा विशेषज्ञ। मंगल-शनि, 10 AM - 6 PM",
                 availability: "मंगल-शनि, 10 AM - 6 PM",
                 education: "MBBS, MS (Ophthalmology), DOMS",
@@ -1043,11 +1094,12 @@ You are not allowed to copy, distribute, or modify this code without written per
             {
                 name: "डॉ. नीतू यादव",
                 specialty: "त्वचा रोग विशेषज्ञ",
-                district: "lucknow",
+                district: "siwan",
+                city: "गुठनी",
                 experience: "8 वर्ष",
                 fees: 700,
-                address: "सिविल हॉस्पिटल, चारबाग, लखनऊ",
-                mapLink: "https://maps.google.com/?q=26.8467,80.9462",
+                address: "गुठनी स्वास्थ्य केंद्र, गुठनी, सिवान",
+                mapLink: "https://maps.google.com/?q=26.05,84.45",
                 description: "त्वचा रोग और कॉस्मेटिक उपचार विशेषज्ञ। लेजर थेरेपी, एक्ने ट्रीटमेंट विशेषज्ञ। बुध-रवि, 12 PM - 8 PM",
                 availability: "बुध-रवि, 12 PM - 8 PM",
                 education: "MBBS, MD (Dermatology), Venereology & Leprosy",
@@ -1058,36 +1110,50 @@ You are not allowed to copy, distribute, or modify this code without written per
             }
         ];
 
-        // User data storage
-        let users = JSON.parse(localStorage.getItem('mauryaDoctorSevaUsers')) || [
-            {
-                id: 1,
-                name: "टेस्ट यूज़र",
-                mobile: "9876543210",
-                email: "test@example.com",
-                password: "123456"
-            }
-        ];
+        // District-City mapping data
+        const districtCityMap = {
+            "siwan": ["सीवान-नगर पालिका", "आंदर", "बड़हरिया", "बसंतपुर", "गुठनी", "हसनपुरा", "सहार"],
+            "mirganj": ["मीरगंज शहर", "मीरगंज ग्रामीण"],
+            "chhapra": ["छपरा शहर", "सोनपुर", "मशरक"],
+            "kanpur": ["कानपुर शहर", "कानपुर ग्रामीण"],
+            "patna": ["पटना शहर", "दानापुर", "फतुहा"],
+            "gopalganj": ["गोपालगंज शहर", "भोरे", "कटेया"],
+            "gorakhpur": ["गोरखपुर शहर", "कुशीनगर", "महाराजगंज"],
+            "all": ["सभी शहर"]
+        };
 
-        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        // User data storage
+        let currentUser = {
+            id: 0,
+            name: "अतिथि",
+            mobile: "",
+            email: ""
+        };
+
         let selectedDistrict = "all";
+        let selectedCity = "all";
         let selectedSpecialty = "all";
         let selectedFee = "all";
         let searchTerm = "";
 
         // DOM Elements
-        const loginModal = document.getElementById('loginModal');
         const mainHeader = document.getElementById('mainHeader');
         const categoriesSection = document.getElementById('categoriesSection');
         const mainContent = document.getElementById('mainContent');
         const mainFooter = document.getElementById('mainFooter');
         const doctorsGrid = document.getElementById('doctorsGrid');
+        const doctorsCount = document.getElementById('doctorsCount');
         const districtToggle = document.getElementById('districtToggle');
         const districtList = document.getElementById('districtList');
+        const cityToggle = document.getElementById('cityToggle');
+        const cityList = document.getElementById('cityList');
         const specialtyToggle = document.getElementById('specialtyToggle');
         const specialtyList = document.getElementById('specialtyList');
         const feeToggle = document.getElementById('feeToggle');
         const feeList = document.getElementById('feeList');
+        const filterStatus = document.getElementById('filterStatus');
+        const filterTags = document.getElementById('filterTags');
+        const clearFilters = document.getElementById('clearFilters');
         const doctorModal = document.getElementById('doctorModal');
         const closeModal = document.getElementById('closeModal');
         const modalBody = document.getElementById('modalBody');
@@ -1095,89 +1161,154 @@ You are not allowed to copy, distribute, or modify this code without written per
         const userInfo = document.getElementById('userInfo');
         const userName = document.getElementById('userName');
 
-        // Login/Register Tabs
-        document.querySelectorAll('.login-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                const tabId = this.getAttribute('data-tab');
-                
-                // Update active tab
-                document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                
-                // Show corresponding form
-                document.querySelectorAll('.login-form').forEach(form => form.classList.remove('active'));
-                document.getElementById(`${tabId}Form`).classList.add('active');
-            });
-        });
-
-        // Login Functionality
-        document.getElementById('loginSubmitBtn').addEventListener('click', function() {
-            const loginId = document.getElementById('loginId').value;
-            const password = document.getElementById('loginPassword').value;
+        // Function to update city dropdown based on selected district
+        function updateCityDropdown(district) {
+            const cityDropdown = document.getElementById('cityList');
+            cityDropdown.innerHTML = '';
             
-            if (!loginId || !password) {
-                alert("कृपया मोबाइल नंबर और पासवर्ड दर्ज करें");
-                return;
-            }
-            
-            // Find user
-            const user = users.find(u => 
-                (u.mobile === loginId || u.email === loginId) && 
-                u.password === password
-            );
-            
-            if (user) {
-                currentUser = user;
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                loginModal.style.display = 'none';
-                showMainApp();
+            // Enable city toggle if district is selected
+            if (district !== "all") {
+                cityToggle.style.opacity = "1";
+                cityToggle.style.cursor = "pointer";
+                cityToggle.querySelector('h3').innerHTML = `<i class="fas fa-city"></i> शहर चुनें`;
             } else {
-                alert("गलत मोबाइल नंबर या पासवर्ड");
+                cityToggle.style.opacity = "0.5";
+                cityToggle.style.cursor = "not-allowed";
+                cityToggle.querySelector('h3').innerHTML = `<i class="fas fa-city"></i> पहले जिला चुनें`;
             }
-        });
+            
+            // Add "All Cities" option
+            const allCitiesOption = document.createElement('div');
+            allCitiesOption.className = 'dropdown-item';
+            allCitiesOption.setAttribute('data-city', 'all');
+            allCitiesOption.innerHTML = `<span>सभी शहर</span><i class="fas fa-check check-icon"></i>`;
+            cityDropdown.appendChild(allCitiesOption);
+            
+            // Add cities based on selected district
+            if (district === 'all') {
+                // Show all cities from all districts
+                const allCities = [];
+                Object.values(districtCityMap).forEach(cities => {
+                    cities.forEach(city => {
+                        if (city !== "सभी शहर" && !allCities.includes(city)) {
+                            allCities.push(city);
+                        }
+                    });
+                });
+                
+                allCities.sort().forEach(city => {
+                    const cityOption = document.createElement('div');
+                    cityOption.className = 'dropdown-item';
+                    cityOption.setAttribute('data-city', city);
+                    cityOption.innerHTML = `<span>${city}</span><i class="fas fa-check check-icon"></i>`;
+                    cityDropdown.appendChild(cityOption);
+                });
+            } else if (districtCityMap[district]) {
+                // Show cities for selected district
+                districtCityMap[district].sort().forEach(city => {
+                    const cityOption = document.createElement('div');
+                    cityOption.className = 'dropdown-item';
+                    cityOption.setAttribute('data-city', city);
+                    cityOption.innerHTML = `<span>${city}</span><i class="fas fa-check check-icon"></i>`;
+                    cityDropdown.appendChild(cityOption);
+                });
+            }
+            
+            // Reset city selection
+            selectedCity = "all";
+            updateSelectedItems();
+            
+            // Add event listeners to city options
+            document.querySelectorAll('#cityList .dropdown-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    if (selectedDistrict === "all") return;
+                    
+                    selectedCity = this.getAttribute('data-city');
+                    cityToggle.querySelector('h3').innerHTML = `<i class="fas fa-city"></i> ${this.querySelector('span').textContent}`;
+                    cityList.classList.remove('active');
+                    cityToggle.classList.remove('active');
+                    updateSelectedItems();
+                    filterDoctors();
+                });
+            });
+        }
 
-        // Register Functionality
-        document.getElementById('registerSubmitBtn').addEventListener('click', function() {
-            const name = document.getElementById('registerName').value;
-            const mobile = document.getElementById('registerMobile').value;
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
+        // Function to update selected items in dropdowns
+        function updateSelectedItems() {
+            // Update district dropdown
+            document.querySelectorAll('#districtList .dropdown-item').forEach(item => {
+                item.classList.remove('selected');
+                if (item.getAttribute('data-district') === selectedDistrict) {
+                    item.classList.add('selected');
+                }
+            });
             
-            if (!name || !mobile || !password) {
-                alert("कृपया नाम, मोबाइल नंबर और पासवर्ड दर्ज करें");
-                return;
+            // Update city dropdown
+            document.querySelectorAll('#cityList .dropdown-item').forEach(item => {
+                item.classList.remove('selected');
+                if (item.getAttribute('data-city') === selectedCity) {
+                    item.classList.add('selected');
+                }
+            });
+            
+            // Update specialty dropdown
+            document.querySelectorAll('#specialtyList .dropdown-item').forEach(item => {
+                item.classList.remove('selected');
+                if (item.getAttribute('data-specialty') === selectedSpecialty) {
+                    item.classList.add('selected');
+                }
+            });
+            
+            // Update fee dropdown
+            document.querySelectorAll('#feeList .dropdown-item').forEach(item => {
+                item.classList.remove('selected');
+                if (item.getAttribute('data-fee') === selectedFee) {
+                    item.classList.add('selected');
+                }
+            });
+            
+            // Update filter status
+            updateFilterStatus();
+        }
+
+        // Function to update filter status bar
+        function updateFilterStatus() {
+            filterTags.innerHTML = '';
+            
+            // District tag
+            const districtTag = document.createElement('div');
+            districtTag.className = 'filter-tag district';
+            const districtText = selectedDistrict === 'all' ? 'सभी' : 
+                document.querySelector(`#districtList .dropdown-item[data-district="${selectedDistrict}"] span`).textContent;
+            districtTag.innerHTML = `<i class="fas fa-map-marker-alt"></i><span>जिला: ${districtText}</span>`;
+            filterTags.appendChild(districtTag);
+            
+            // City tag (only if district is selected)
+            if (selectedDistrict !== 'all') {
+                const cityTag = document.createElement('div');
+                cityTag.className = 'filter-tag city';
+                const cityText = selectedCity === 'all' ? 'सभी' : 
+                    document.querySelector(`#cityList .dropdown-item[data-city="${selectedCity}"] span`).textContent;
+                cityTag.innerHTML = `<i class="fas fa-city"></i><span>शहर: ${cityText}</span>`;
+                filterTags.appendChild(cityTag);
             }
             
-            if (mobile.length !== 10 || isNaN(mobile)) {
-                alert("कृपया वैध 10 अंकों का मोबाइल नंबर दर्ज करें");
-                return;
-            }
+            // Specialty tag
+            const specialtyTag = document.createElement('div');
+            specialtyTag.className = 'filter-tag specialty';
+            const specialtyText = selectedSpecialty === 'all' ? 'सभी' : 
+                document.querySelector(`#specialtyList .dropdown-item[data-specialty="${selectedSpecialty}"] span`).textContent;
+            specialtyTag.innerHTML = `<i class="fas fa-user-md"></i><span>विशेषता: ${specialtyText}</span>`;
+            filterTags.appendChild(specialtyTag);
             
-            // Check if user already exists
-            const existingUser = users.find(u => u.mobile === mobile);
-            if (existingUser) {
-                alert("यह मोबाइल नंबर पहले से रजिस्टर है");
-                return;
-            }
-            
-            // Create new user
-            const newUser = {
-                id: users.length + 1,
-                name: name,
-                mobile: mobile,
-                email: email || `${mobile}@mauryadoctorseva.com`,
-                password: password
-            };
-            
-            users.push(newUser);
-            localStorage.setItem('mauryaDoctorSevaUsers', JSON.stringify(users));
-            
-            currentUser = newUser;
-            localStorage.setItem('currentUser', JSON.stringify(newUser));
-            
-            loginModal.style.display = 'none';
-            showMainApp();
-        });
+            // Fee tag
+            const feeTag = document.createElement('div');
+            feeTag.className = 'filter-tag fee';
+            const feeText = selectedFee === 'all' ? 'सभी' : 
+                document.querySelector(`#feeList .dropdown-item[data-fee="${selectedFee}"] span`).textContent;
+            feeTag.innerHTML = `<i class="fas fa-rupee-sign"></i><span>फीस: ${feeText}</span>`;
+            filterTags.appendChild(feeTag);
+        }
 
         // Show Main Application
         function showMainApp() {
@@ -1187,6 +1318,12 @@ You are not allowed to copy, distribute, or modify this code without written per
             mainFooter.style.display = 'block';
             
             userName.textContent = currentUser.name;
+            
+            // Initialize city dropdown with all cities
+            updateCityDropdown('all');
+            
+            // Initialize selected items
+            updateSelectedItems();
             
             // Display doctors
             displayDoctors(doctors);
@@ -1207,6 +1344,7 @@ You are not allowed to copy, distribute, or modify this code without written per
                         <p>कृपया अपने फिल्टर बदलें और फिर से खोजें</p>
                     </div>
                 `;
+                doctorsCount.textContent = `(0 डॉक्टर्स)`;
                 return;
             }
             
@@ -1234,7 +1372,7 @@ You are not allowed to copy, distribute, or modify this code without written per
                             </div>
                             <div class="detail-item">
                                 <div class="detail-label">शहर</div>
-                                <div class="detail-value">${doctor.district}</div>
+                                <div class="detail-value">${doctor.city}</div>
                             </div>
                             <div class="detail-item">
                                 <div class="detail-label">फीस</div>
@@ -1249,6 +1387,9 @@ You are not allowed to copy, distribute, or modify this code without written per
                 
                 doctorsGrid.appendChild(doctorCard);
             });
+            
+            // Update doctors count
+            doctorsCount.textContent = `(${doctorsList.length} डॉक्टर्स)`;
             
             // Add event listeners to appointment buttons
             document.querySelectorAll('.book-appointment-btn').forEach(btn => {
@@ -1483,6 +1624,13 @@ You are not allowed to copy, distribute, or modify this code without written per
                 );
             }
             
+            // Filter by city (only if district is selected)
+            if (selectedDistrict !== "all" && selectedCity !== "all") {
+                filteredDoctors = filteredDoctors.filter(doctor => 
+                    doctor.city === selectedCity
+                );
+            }
+            
             // Filter by specialty
             if (selectedSpecialty !== "all") {
                 filteredDoctors = filteredDoctors.filter(doctor => 
@@ -1517,6 +1665,7 @@ You are not allowed to copy, distribute, or modify this code without written per
                     doctor.name.toLowerCase().includes(term) ||
                     doctor.specialty.toLowerCase().includes(term) ||
                     doctor.district.toLowerCase().includes(term) ||
+                    doctor.city.toLowerCase().includes(term) ||
                     doctor.address.toLowerCase().includes(term)
                 );
             }
@@ -1530,37 +1679,75 @@ You are not allowed to copy, distribute, or modify this code without written per
             districtToggle.addEventListener('click', (e) => {
                 e.stopPropagation();
                 districtList.classList.toggle('active');
+                districtToggle.classList.toggle('active');
                 specialtyList.classList.remove('active');
+                specialtyToggle.classList.remove('active');
                 feeList.classList.remove('active');
+                feeToggle.classList.remove('active');
+                cityList.classList.remove('active');
+                cityToggle.classList.remove('active');
+            });
+
+            cityToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (selectedDistrict === "all") return;
+                cityList.classList.toggle('active');
+                cityToggle.classList.toggle('active');
+                districtList.classList.remove('active');
+                districtToggle.classList.remove('active');
+                specialtyList.classList.remove('active');
+                specialtyToggle.classList.remove('active');
+                feeList.classList.remove('active');
+                feeToggle.classList.remove('active');
             });
 
             specialtyToggle.addEventListener('click', (e) => {
                 e.stopPropagation();
                 specialtyList.classList.toggle('active');
+                specialtyToggle.classList.toggle('active');
                 districtList.classList.remove('active');
+                districtToggle.classList.remove('active');
                 feeList.classList.remove('active');
+                feeToggle.classList.remove('active');
+                cityList.classList.remove('active');
+                cityToggle.classList.remove('active');
             });
 
             feeToggle.addEventListener('click', (e) => {
                 e.stopPropagation();
                 feeList.classList.toggle('active');
+                feeToggle.classList.toggle('active');
                 districtList.classList.remove('active');
+                districtToggle.classList.remove('active');
                 specialtyList.classList.remove('active');
+                specialtyToggle.classList.remove('active');
+                cityList.classList.remove('active');
+                cityToggle.classList.remove('active');
             });
 
             // Close dropdowns when clicking outside
             document.addEventListener('click', () => {
                 districtList.classList.remove('active');
+                districtToggle.classList.remove('active');
                 specialtyList.classList.remove('active');
+                specialtyToggle.classList.remove('active');
                 feeList.classList.remove('active');
+                feeToggle.classList.remove('active');
+                cityList.classList.remove('active');
+                cityToggle.classList.remove('active');
             });
 
             // District selection
             document.querySelectorAll('#districtList .dropdown-item').forEach(item => {
                 item.addEventListener('click', function() {
                     selectedDistrict = this.getAttribute('data-district');
-                    districtToggle.querySelector('h3').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${this.textContent}`;
+                    districtToggle.querySelector('h3').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${this.querySelector('span').textContent}`;
                     districtList.classList.remove('active');
+                    districtToggle.classList.remove('active');
+                    
+                    // Update city dropdown based on selected district
+                    updateCityDropdown(selectedDistrict);
+                    
                     filterDoctors();
                 });
             });
@@ -1569,8 +1756,10 @@ You are not allowed to copy, distribute, or modify this code without written per
             document.querySelectorAll('#specialtyList .dropdown-item').forEach(item => {
                 item.addEventListener('click', function() {
                     selectedSpecialty = this.getAttribute('data-specialty');
-                    specialtyToggle.querySelector('h3').innerHTML = `<i class="fas fa-user-md"></i> ${this.textContent}`;
+                    specialtyToggle.querySelector('h3').innerHTML = `<i class="fas fa-user-md"></i> ${this.querySelector('span').textContent}`;
                     specialtyList.classList.remove('active');
+                    specialtyToggle.classList.remove('active');
+                    updateSelectedItems();
                     filterDoctors();
                 });
             });
@@ -1579,10 +1768,37 @@ You are not allowed to copy, distribute, or modify this code without written per
             document.querySelectorAll('#feeList .dropdown-item').forEach(item => {
                 item.addEventListener('click', function() {
                     selectedFee = this.getAttribute('data-fee');
-                    feeToggle.querySelector('h3').innerHTML = `<i class="fas fa-rupee-sign"></i> ${this.textContent}`;
+                    feeToggle.querySelector('h3').innerHTML = `<i class="fas fa-rupee-sign"></i> ${this.querySelector('span').textContent}`;
                     feeList.classList.remove('active');
+                    feeToggle.classList.remove('active');
+                    updateSelectedItems();
                     filterDoctors();
                 });
+            });
+
+            // Clear filters button
+            clearFilters.addEventListener('click', function() {
+                selectedDistrict = "all";
+                selectedCity = "all";
+                selectedSpecialty = "all";
+                selectedFee = "all";
+                searchTerm = "";
+                searchBar.value = "";
+                
+                // Reset dropdown titles
+                districtToggle.querySelector('h3').innerHTML = `<i class="fas fa-map-marker-alt"></i> जिला चुनें`;
+                cityToggle.querySelector('h3').innerHTML = `<i class="fas fa-city"></i> पहले जिला चुनें`;
+                cityToggle.style.opacity = "0.5";
+                cityToggle.style.cursor = "not-allowed";
+                specialtyToggle.querySelector('h3').innerHTML = `<i class="fas fa-user-md"></i> विशेषता चुनें`;
+                feeToggle.querySelector('h3').innerHTML = `<i class="fas fa-rupee-sign"></i> फीस चुनें`;
+                
+                // Update city dropdown
+                updateCityDropdown('all');
+                
+                // Update selected items and filter doctors
+                updateSelectedItems();
+                filterDoctors();
             });
 
             // Search functionality
@@ -1603,38 +1819,15 @@ You are not allowed to copy, distribute, or modify this code without written per
                 }
             });
 
-            // Logout functionality
+            // User info click
             userInfo.addEventListener('click', function() {
-                if (confirm("क्या आप लॉगआउट करना चाहते हैं?")) {
-                    currentUser = null;
-                    localStorage.removeItem('currentUser');
-                    
-                    mainHeader.style.display = 'none';
-                    categoriesSection.style.display = 'none';
-                    mainContent.style.display = 'none';
-                    mainFooter.style.display = 'none';
-                    
-                    loginModal.style.display = 'flex';
-                    
-                    // Reset form
-                    document.getElementById('loginId').value = '';
-                    document.getElementById('loginPassword').value = '';
-                    document.getElementById('registerName').value = '';
-                    document.getElementById('registerMobile').value = '';
-                    document.getElementById('registerEmail').value = '';
-                    document.getElementById('registerPassword').value = '';
-                }
+                alert("आप अतिथि के रूप में उपयोग कर रहे हैं। अपॉइंटमेंट बुक करने के लिए अपना नाम और मोबाइल नंबर डाल सकते हैं।");
             });
         }
 
         // Initialize App
         function initializeApp() {
-            if (currentUser) {
-                loginModal.style.display = 'none';
-                showMainApp();
-            } else {
-                loginModal.style.display = 'flex';
-            }
+            showMainApp();
         }
 
         // Start the application
