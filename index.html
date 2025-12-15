@@ -27,7 +27,8 @@
     <meta name="twitter:description" content="बिहार और उत्तर प्रदेश में डॉक्टर ढूंढें और ऑनलाइन अपॉइंटमेंट बुक करें।">
     <meta name="twitter:image" content="https://i.ibb.co/JwBpF5mj/0cbe15501f005153ec5247cd04fe4315.jpg">
     
-    <!-- Canonical URL --  <link rel="canonical" href="https://mauryadoctorseva.com">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/">
     
     <!-- Google verification -->
     <meta name="google-site-verification" content="mROJKeTMag89cL7-vA3IWH83X8SxhjyvTF1mFVQmw0M" />
@@ -1027,7 +1028,7 @@
             <div class="footer-column">
                 <h3>हमारी वेबसाइट्स</h3>
                 <ul class="footer-links">
-                    <li><a href="https://mauryadoctorseva.com" target="_blank"><i class="fas fa-globe"></i> Maurya Doctor Seva</a></li>
+                    <li><a href="https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/" target="_blank"><i class="fas fa-globe"></i> Maurya Doctor Seva</a></li>
                     <li><a href="https://mauryahospital.com" target="_blank"><i class="fas fa-hospital"></i> Maurya Hospital</a></li>
                     <li><a href="https://bihardoctors.com" target="_blank"><i class="fas fa-user-md"></i> Bihar Doctors</a></li>
                     <li><a href="https://updoctors.in" target="_blank"><i class="fas fa-stethoscope"></i> UP Doctors</a></li>
@@ -1211,6 +1212,9 @@
 
         // Current doctor in modal
         let currentDoctorInModal = null;
+        
+        // Website URL
+        const websiteUrl = "https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/";
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
@@ -1218,7 +1222,22 @@
             populateSpecialties();
             renderDoctors();
             setupEventListeners();
+            
+            // Check if there's a doctor ID in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const doctorId = urlParams.get('doctor');
+            if (doctorId) {
+                openDoctorModalDirect(parseInt(doctorId));
+            }
         });
+
+        // Open doctor modal directly from URL
+        function openDoctorModalDirect(doctorId) {
+            const doctor = doctors.find(d => d.id === doctorId);
+            if (doctor) {
+                openDoctorModal(doctorId);
+            }
+        }
 
         // Populate district dropdown
         function populateDistricts() {
@@ -1421,6 +1440,10 @@
             const doctor = doctors.find(d => d.id === doctorId);
             currentDoctorInModal = doctor;
             
+            // Update URL with doctor parameter
+            const newUrl = `${websiteUrl}?doctor=${doctorId}`;
+            window.history.pushState({ doctorId }, '', newUrl);
+            
             const modal = document.getElementById('doctor-modal');
             const modalBody = document.getElementById('modal-body');
             
@@ -1474,38 +1497,22 @@
             modal.classList.add('active');
             
             // Setup send profile button functionality
-            document.getElementById('send-profile-btn').onclick = () => sendDoctorProfile(doctor);
+            document.getElementById('send-profile-btn').onclick = () => sendDoctorProfileLink(doctor);
         }
 
-        // Send doctor profile via WhatsApp
-        function sendDoctorProfile(doctor) {
+        // Send doctor profile link via WhatsApp
+        function sendDoctorProfileLink(doctor) {
             if (!doctor) {
                 doctor = currentDoctorInModal;
             }
             
-            const profileMessage = `*डॉक्टर प्रोफाइल - ${doctor.name}*
-
-*विशेषता:* ${doctor.specialty}
-*अनुभव:* ${doctor.experience}
-*परामर्श शुल्क:* ₹${doctor.fees}
-*स्थान:* ${doctor.city}, ${doctor.district}
-
-*विशेषज्ञता:*
-${doctor.description}
-
-*क्लिनिक का पता:*
-${doctor.address}
-
-*समय सारणी:*
-${doctor.schedule}
-
-*संपर्क:*
-${doctor.phone}
-
-*Maurya Doctor Seva से प्राप्त जानकारी*
-आप भी डॉक्टर से अपॉइंटमेंट बुक कर सकते हैं: https://mauryadoctorseva.com`;
-
-            const encodedMessage = encodeURIComponent(profileMessage);
+            // Create doctor profile link with doctor ID
+            const profileLink = `${websiteUrl}?doctor=${doctor.id}`;
+            
+            // Create WhatsApp message with just the link
+            const message = `डॉक्टर ${doctor.name} का प्रोफाइल देखें:\n\n${profileLink}\n\n*विशेषता:* ${doctor.specialty}\n*अनुभव:* ${doctor.experience}\n*फीस:* ₹${doctor.fees}\n\nMaurya Doctor Seva - बिहार और उत्तर प्रदेश में ऑनलाइन डॉक्टर अपॉइंटमेंट`;
+            
+            const encodedMessage = encodeURIComponent(message);
             window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
         }
 
@@ -1650,6 +1657,9 @@ ${name}`;
         function closeModal() {
             document.getElementById('doctor-modal').classList.remove('active');
             currentDoctorInModal = null;
+            
+            // Remove doctor parameter from URL when closing modal
+            window.history.pushState({}, '', websiteUrl);
         }
 
         // Close patient modal
@@ -1720,9 +1730,21 @@ ${name}`;
                 }
             });
             
+            // Handle browser back/forward buttons
+            window.addEventListener('popstate', function(event) {
+                const urlParams = new URLSearchParams(window.location.search);
+                const doctorId = urlParams.get('doctor');
+                
+                if (doctorId) {
+                    openDoctorModalDirect(parseInt(doctorId));
+                } else {
+                    closeModal();
+                }
+            });
+            
             // Initialize city dropdown
             populateCities();
         }
     </script>
 </body>
-</html>
+    </html>
