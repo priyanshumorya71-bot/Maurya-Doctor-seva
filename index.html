@@ -470,6 +470,15 @@
             background-color: #3d8b40;
         }
 
+        .copy-link-btn {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .copy-link-btn:hover {
+            background-color: #0b7dda;
+        }
+
         .close-modal-btn {
             background-color: #f44336;
             color: white;
@@ -487,7 +496,6 @@
             cursor: pointer;
             color: var(--gray-color);
             z-index: 10;
-            display: none; /* Hide the old close button */
         }
 
         .modal-body {
@@ -549,6 +557,68 @@
 
         .location-link:hover {
             background-color: #d4e9ff;
+        }
+
+        /* =========== LINK COPY CONTAINER =========== */
+        .link-copy-container {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            border: 1px solid #eaeff4;
+        }
+        
+        .link-copy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .link-copy-header h4 {
+            color: var(--dark-color);
+            font-size: 16px;
+        }
+        
+        .link-display {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .link-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: white;
+        }
+        
+        .copy-link-small {
+            padding: 10px 15px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .copy-link-small:hover {
+            background-color: #0b7dda;
+        }
+        
+        .copy-success {
+            color: #4CAF50;
+            font-size: 14px;
+            display: none;
+            margin-top: 5px;
+        }
+        
+        .copy-success.show {
+            display: block;
         }
 
         /* =========== PATIENT INFO FORM =========== */
@@ -662,6 +732,30 @@
         .form-whatsapp-btn:disabled {
             background-color: #cccccc;
             cursor: not-allowed;
+        }
+
+        .form-close-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .form-close-btn:hover {
+            background-color: #d32f2f;
         }
 
         /* =========== SUCCESS MESSAGE =========== */
@@ -820,6 +914,10 @@
                 width: 100%;
                 justify-content: center;
             }
+            
+            .link-display {
+                flex-direction: column;
+            }
         }
         
         /* =========== HIDDEN SEO CONTENT =========== */
@@ -887,6 +985,21 @@
             font-weight: bold;
             margin-left: 5px;
         }
+        
+        /* =========== NO DOCTORS MESSAGE =========== */
+        .no-doctors {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: white;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .no-doctors i {
+            font-size: 60px;
+            color: var(--gray-color);
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -902,8 +1015,6 @@
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" class="search-bar" placeholder="डॉक्टर, विशेषता या शहर खोजें...">
             </div>
-            
-            <!-- User info removed as requested -->
         </div>
     </header>
     
@@ -973,6 +1084,14 @@
         <!-- Doctors Grid -->
         <div class="doctors-grid" id="doctors-grid">
             <!-- Doctors will be populated by JavaScript -->
+        </div>
+        
+        <!-- No Doctors Message -->
+        <div class="no-doctors" id="no-doctors" style="display: none;">
+            <i class="fas fa-user-md"></i>
+            <h3>कोई डॉक्टर नहीं मिला</h3>
+            <p>दिए गए फिल्टर के अनुसार कोई डॉक्टर नहीं मिला। कृपया अन्य फिल्टर आजमाएं या सभी फिल्टर हटा दें।</p>
+            <button class="appointment-btn" onclick="clearAllFilters()" style="max-width: 200px; margin: 20px auto;">सभी फिल्टर हटाएं</button>
         </div>
         
         <!-- Advertisement Section -->
@@ -1062,6 +1181,9 @@
                     <button class="modal-action-btn send-profile-btn" id="send-profile-btn">
                         <i class="fas fa-share-alt"></i> प्रोफाइल भेजें
                     </button>
+                    <button class="modal-action-btn copy-link-btn" id="copy-link-btn">
+                        <i class="fas fa-link"></i> लिंक कॉपी करें
+                    </button>
                     <button class="modal-action-btn close-modal-btn" onclick="closeModal()">
                         <i class="fas fa-times"></i> बंद करें
                     </button>
@@ -1085,18 +1207,20 @@
     </div>
     
     <script>
-        // Data for doctors
+        // Data for doctors with updated image URLs
         const doctors = [
             {
                 id: 1,
                 name: "डॉ. एम. एस. अहमद",
                 specialty: "होम्योपैथिक फिजिशियन",
+                qualifications: "BHMS, MD (Homeopathy)",
+                expertise: ["होम्योपैथिक उपचार", "क्रॉनिक रोग", "एलर्जी उपचार", "त्वचा संबंधी समस्याएं"],
                 experience: "5 वर्ष",
                 city: "सिवान",
                 district: "सिवान",
                 fees: 500,
                 number: 1,
-                image: "https://i.ibb.co/1twvQ9dC/9857e7452ff1092b8e6476e662966e64.jpg",
+                image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop",
                 description: "होम्योपैथिक फिजिशियन ।",
                 address: "CARE & CURE HOMOEOPATHIC CLINIC ,इस्माईल शाहिद, चीनी मिल बाईपास रोड, सिवान, बिहार - 841226",
                 phone: "+917643806356",
@@ -1107,12 +1231,14 @@
                 id: 2,
                 name: "डॉ.प्रदीप कुमार सिंह",
                 specialty: "नवजात शिशु और बाल रोग विशेषज्ञ",
+                qualifications: "MBBS, MD (Pediatrics)",
+                expertise: ["नवजात शिशु देखभाल", "बाल पोषण", "टीकाकरण", "श्वसन संक्रमण"],
                 experience: "10 वर्ष",
                 city: "सिवान",
                 district: "सिवान",
                 fees: 400,
                 number: 2,
-                image: "https://i.ibb.co/JRpj97s3/13b68b3e0f8c4bc762f3be180593d477.jpg",
+                image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop",
                 description: "24 घंटे आपातकालीन सेवा उपलब्ध है।",
                 address: "सिवान नर्सिंग होम,नियर अड्डा नंबर 2 पुराना किला मोड़ ,सिवान, बिहार - 841426",
                 phone: "+917643806356",
@@ -1123,12 +1249,14 @@
                 id: 3,
                 name: "डॉ. अमित वर्मा",
                 specialty: "बाल रोग विशेषज्ञ",
+                qualifications: "MBBS, DCH (Child Health)",
+                expertise: ["बच्चों के रोग", "नवजात शिशु देखभाल", "टीकाकरण", "बाल पोषण", "श्वसन संक्रमण", "पाचन समस्याएं", "बच्चों में एलर्जी", "बाल विकास मूल्यांकन"],
                 experience: "10 वर्ष",
                 city: "छपरा",
                 district: "सरन",
                 fees: 300,
                 number: 3,
-                image: "https://i.ibb.co/JwBpF5mj/0cbe15501f005153ec5247cd04fe4315.jpg",
+                image: "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=400&h=400&fit=crop",
                 description: "बच्चों के रोग, नवजात शिशु देखभाल, टीकाकरण, बाल पोषण, श्वसन संक्रमण, पाचन समस्याएं, बच्चों में एलर्जी, बाल विकास मूल्यांकन।",
                 address: "बाल चिकित्सालय, छपरा शहर, सरन, बिहार - 841301",
                 phone: "+917643806356",
@@ -1139,12 +1267,14 @@
                 id: 4,
                 name: "डॉ. सुनील यादव",
                 specialty: "आँखों के डॉक्टर",
+                qualifications: "MBBS, MS (Ophthalmology)",
+                expertise: ["नेत्र रोग", "मोतियाबिंद सर्जरी", "लेसिक सर्जरी", "ग्लूकोमा", "रेटिना रोग", "बच्चों की आँखों की समस्याएं", "चश्मा परीक्षण", "कॉन्टैक्ट लेंस फिटिंग"],
                 experience: "8 वर्ष",
                 city: "गोरखपुर",
                 district: "गोरखपुर",
                 fees: 350,
                 number: 4,
-                image: "https://i.ibb.co/JwBpF5mj/0cbe15501f005153ec5247cd04fe4315.jpg",
+                image: "https://images.unsplash.com/photo-1594824434340-7e7dfc37cabb?w=400&h=400&fit=crop",
                 description: "नेत्र रोग, मोतियाबिंद सर्जरी, लेसिक सर्जरी, ग्लूकोमा, रेटिना रोग, बच्चों की आँखों की समस्याएं, चश्मा परीक्षण, कॉन्टैक्ट लेंस फिटिंग।",
                 address: "नेत्र चिकित्सालय, गोरखपुर शहर, उत्तर प्रदेश - 273001",
                 phone: "+917643806356",
@@ -1155,12 +1285,14 @@
                 id: 5,
                 name: "डॉ. रीना शर्मा",
                 specialty: "त्वचा रोग विशेषज्ञ",
+                qualifications: "MBBS, MD (Dermatology)",
+                expertise: ["त्वचा रोग", "मुहांसे", "एक्जिमा", "सोरायसिस", "त्वचा कैंसर", "एलर्जी", "बालों के रोग", "कॉस्मेटिक डर्मेटोलॉजी", "लेजर ट्रीटमेंट"],
                 experience: "7 वर्ष",
                 city: "कानपुर",
-                district: "सिवान",
+                district: "कानपुर नगर",
                 fees: 600,
                 number: 5,
-                image: "https://i.ibb.co/JwBpF5mj/0cbe15501f005153ec5247cd04fe4315.jpg",
+                image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop",
                 description: "त्वचा रोग, मुहांसे, एक्जिमा, सोरायसिस, त्वचा कैंसर, एलर्जी, बालों के रोग, कॉस्मेटिक डर्मेटोलॉजी, लेजर ट्रीटमेंट।",
                 address: "त्वचा चिकित्सालय, कानपुर शहर, उत्तर प्रदेश - 208001",
                 phone: "+917643806356",
@@ -1171,50 +1303,67 @@
                 id: 6,
                 name: "डॉ. राजन मान सिंह",
                 specialty: "नवजात शिशु और बाल रोग विशेषज्ञ",
+                qualifications: "MBBS, DNB (Pediatrics)",
+                expertise: ["नवजात शिशु देखभाल", "बाल रोग", "पोषण परामर्श", "आपातकालीन बाल चिकित्सा"],
                 experience: "14 वर्ष",
-                city: "सिवान",
-                district: "सिवान",
+                city: "पटना",
+                district: "पटना",
                 fees: 700,
                 number: 6,
-                image: "https://i.ibb.co/JwBpF5mj/0cbe15501f005153ec5247cd04fe4315.jpg",
+                image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop",
                 description: "नवजात शिशु और बाल रोग विशेषज्ञ",
                 address: "वार्ड नंबर 5, लक्ष्मी नगर मार्ग, पैगम्बरपुर , सिवान, बिहार - 841226",
                 phone: "+917643806356",
                 schedule: "सोमवार से शनिवार: सुबह 9:00 बजे से रात 8:00 बजे तक",
                 googleLocation: "https://maps.app.goo.gl/D3NyZwpKfXkGDDKz7"
+            },
+            {
+                id: 7,
+                name: "डॉ. मो. मुज़म्मिल",
+                specialty: "जनरल सर्जन (MBBS, MS, DNB)",
+                qualifications: "MBBS, MS (General Surgery), DNB",
+                expertise: ["आधुनिक लेजर सर्जरी", "आपातकालीन सर्जरी", "जनरल सर्जरी", "लैप्रोस्कोपिक सर्जरी"],
+                experience: "11 वर्ष",
+                city: "सिवान",
+                district: "सिवान",
+                fees: 500,
+                number: 7,
+                image: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=400&fit=crop",
+                description: "प्रत्येक शुक्रवार को OPD निःशुल्क उपलब्ध। लेजर द्वारा आधुनिक सर्जरी की सुविधा।",
+                address: "समीर सनराइज हॉस्पिटल, बिंदुसार रोड, डॉक्टर सरोज सिंह के बगल में, सिवान, बिहार",
+                phone: "+918271776199, +917042061504",
+                schedule: "सोमवार से शनिवार: सुबह 10:00 बजे से शाम 6:00 बजे तक | शुक्रवार: OPD फ्री",
+                googleLocation: "https://maps.app.goo.gl/Gbd4vWe9Wybjhgxr8"
             }
         ];
 
         // Data for districts and their cities
         const districtCityMap = {
-            "सिवान": ["सिवान शहर", "महाराजगंज –उपलब्ध नहीं हैं ", "हसनपुरा –उपलब्ध नहीं हैं ", "नरही –उपलब्ध नहीं हैं ", "भगवानपुर हट– उपलब्ध नहीं हैं "],
-            //"गोपालगंज": ["गोपालगंज शहर", "मीरगंज", "भोरे", "उच्चाकागा", "सिद्धवलिया"],
-            //"सरन": ["छपरा शहर", "मारहौरा", "गरखा", "ईश्वरपुर", "जलालपुर"],
-            //"पटना": ["पटना शहर", "दानापुर", "फुलवारीशरीफ", "बिहटा", "मसौढ़ी"],
-            //"गोरखपुर": ["गोरखपुर शहर", "खजनी", "चौरी चौरा", "कम्पियारगंज", "गगहा"],
-            //"कानपुर नगर": ["कानपुर शहर", "जाजमऊ", "पनकी", "शिवराजपुर", "घटमपुर"]
+            "सिवान": ["सिवान", "सिवान शहर", "महाराजगंज", "हसनपुरा", "नरही", "भगवानपुर हट"],
+            "गोपालगंज": ["गोपालगंज", "गोपालगंज शहर", "मीरगंज", "भोरे", "उच्चाकागा", "सिद्धवलिया"],
+            "सरन": ["छपरा", "छपरा शहर", "मारहौरा", "गरखा", "ईश्वरपुर", "जलालपुर"],
+            "पटना": ["पटना", "पटना शहर", "दानापुर", "फुलवारीशरीफ", "बिहटा", "मसौढ़ी"],
+            "गोरखपुर": ["गोरखपुर", "गोरखपुर शहर", "खजनी", "चौरी चौरा", "कम्पियारगंज", "गगहा"],
+            "कानपुर नगर": ["कानपुर", "कानपुर शहर", "जाजमऊ", "पनकी", "शिवराजपुर", "घटमपुर"]
         };
 
         // Data for specialties
         const specialties = [
-            "आपातकालीन अस्पताल 24/7",
-            "हृदय रोग विशेषज्ञ",
-            "स्त्री रोग विशेषज्ञ", 
+            "सभी विशेषताएं",
+            "होम्योपैथिक फिजिशियन",
             "बाल रोग विशेषज्ञ",
+            "नवजात शिशु और बाल रोग विशेषज्ञ",
             "आँखों के डॉक्टर",
             "त्वचा रोग विशेषज्ञ",
-            "आर्थोपेडिक सर्जन",
-            "दंत चिकित्सक",
-            "मनोचिकित्सक",
-            "फिजियोथेरेपिस्ट"
+            "जनरल सर्जन"
         ];
 
         // Filter state
         let filters = {
             district: null,
-            city: "सभी शहर",
+            city: null,
             specialty: null,
-            feeRange: "सभी फीस"
+            feeRange: null
         };
 
         // Current doctor in modal
@@ -1249,7 +1398,7 @@
         // Populate district dropdown
         function populateDistricts() {
             const districtDropdown = document.getElementById('district-dropdown');
-            districtDropdown.innerHTML = '<div class="dropdown-item">सभी जिले</div>';
+            districtDropdown.innerHTML = '<div class="dropdown-item" onclick="selectFilter(\'district\', null)">सभी जिले</div>';
             
             Object.keys(districtCityMap).forEach(district => {
                 const item = document.createElement('div');
@@ -1263,7 +1412,7 @@
         // Populate city dropdown based on selected district
         function populateCities() {
             const cityDropdown = document.getElementById('city-dropdown');
-            cityDropdown.innerHTML = '<div class="dropdown-item">सभी शहर</div>';
+            cityDropdown.innerHTML = '<div class="dropdown-item" onclick="selectFilter(\'city\', null)">सभी शहर</div>';
             
             if (filters.district && districtCityMap[filters.district]) {
                 districtCityMap[filters.district].forEach(city => {
@@ -1288,12 +1437,19 @@
                     cityDropdown.appendChild(item);
                 });
             }
+            
+            // Mark selected city
+            document.querySelectorAll('#city-dropdown .dropdown-item').forEach(item => {
+                if (item.textContent === filters.city || (!filters.city && item.textContent === 'सभी शहर')) {
+                    item.classList.add('selected');
+                }
+            });
         }
 
         // Populate specialties dropdown
         function populateSpecialties() {
             const specialtyDropdown = document.getElementById('specialty-dropdown');
-            specialtyDropdown.innerHTML = '<div class="dropdown-item">सभी विशेषताएं</div>';
+            specialtyDropdown.innerHTML = '<div class="dropdown-item" onclick="selectFilter(\'specialty\', null)">सभी विशेषताएं</div>';
             
             specialties.forEach(specialty => {
                 const item = document.createElement('div');
@@ -1311,14 +1467,11 @@
             // If district is selected, update city dropdown
             if (type === 'district') {
                 populateCities();
-                // Reset city filter when district changes
-                filters.city = "सभी शहर";
             }
             
             // If selecting "all", set to null
             if (value === 'सभी जिले' || value === 'सभी शहर' || value === 'सभी विशेषताएं' || value === 'सभी फीस') {
                 filters[type] = null;
-                if (type === 'city') filters.city = "सभी शहर";
             }
             
             updateSelectedFilters();
@@ -1357,9 +1510,20 @@
         function removeFilter(type) {
             filters[type] = null;
             if (type === 'district') {
-                filters.city = "सभी शहर";
-                populateCities();
+                filters.city = null;
             }
+            updateSelectedFilters();
+            renderDoctors();
+        }
+
+        // Clear all filters
+        function clearAllFilters() {
+            filters = {
+                district: null,
+                city: null,
+                specialty: null,
+                feeRange: null
+            };
             updateSelectedFilters();
             renderDoctors();
         }
@@ -1367,6 +1531,7 @@
         // Render doctors based on filters
         function renderDoctors() {
             const doctorsGrid = document.getElementById('doctors-grid');
+            const noDoctorsMessage = document.getElementById('no-doctors');
             doctorsGrid.innerHTML = '';
             
             let filteredDoctors = doctors;
@@ -1378,7 +1543,7 @@
                 );
             }
             
-            if (filters.city && filters.city !== "सभी शहर") {
+            if (filters.city) {
                 filteredDoctors = filteredDoctors.filter(doctor => 
                     doctor.city === filters.city
                 );
@@ -1401,6 +1566,13 @@
                         default: return true;
                     }
                 });
+            }
+            
+            // Show/hide no doctors message
+            if (filteredDoctors.length === 0) {
+                noDoctorsMessage.style.display = 'block';
+            } else {
+                noDoctorsMessage.style.display = 'none';
             }
             
             // Render doctors
@@ -1454,6 +1626,17 @@
             const modal = document.getElementById('doctor-modal');
             const modalBody = document.getElementById('modal-body');
             
+            let expertiseList = '';
+            if (doctor.expertise && doctor.expertise.length > 0) {
+                expertiseList = '<ul>';
+                doctor.expertise.forEach(item => {
+                    expertiseList += `<li>${item}</li>`;
+                });
+                expertiseList += '</ul>';
+            }
+            
+            const profileLink = `${websiteUrl}?doctor=${doctor.id}`;
+            
             modalBody.innerHTML = `
                 <div class="doctor-header">
                     <div class="modal-doctor-image">
@@ -1465,16 +1648,36 @@
                             <i class="fas fa-user-md"></i>
                             ${doctor.specialty}
                         </div>
-                        <p><i class="fas fa-graduation-cap"></i> एमबीबीएस, एमडी</p>
+                        <p><i class="fas fa-graduation-cap"></i> ${doctor.qualifications}</p>
                         <p><i class="fas fa-briefcase"></i> ${doctor.experience} का अनुभव</p>
                         <p><i class="fas fa-rupee-sign"></i> परामर्श शुल्क: ₹${doctor.fees}</p>
                         <p><i class="fas fa-map-marker-alt"></i> ${doctor.city}, ${doctor.district}</p>
                     </div>
                 </div>
                 
+                <div class="link-copy-container">
+                    <div class="link-copy-header">
+                        <h4><i class="fas fa-link"></i> इस डॉक्टर का लिंक शेयर करें</h4>
+                    </div>
+                    <div class="link-display">
+                        <input type="text" class="link-input" id="profile-link-input" value="${profileLink}" readonly>
+                        <button class="copy-link-small" onclick="copyProfileLink()">
+                            <i class="fas fa-copy"></i> कॉपी
+                        </button>
+                    </div>
+                    <div class="copy-success" id="copy-success">
+                        <i class="fas fa-check-circle"></i> लिंक कॉपी हो गया!
+                    </div>
+                </div>
+                
                 <div class="modal-section">
                     <h3>विशेषज्ञता</h3>
                     <p>${doctor.description}</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>विशेषताएं</h3>
+                    ${expertiseList || '<p>उपलब्ध नहीं</p>'}
                 </div>
                 
                 <div class="modal-section">
@@ -1505,6 +1708,32 @@
             
             // Setup send profile button functionality
             document.getElementById('send-profile-btn').onclick = () => sendDoctorProfileLink(doctor);
+            document.getElementById('copy-link-btn').onclick = () => copyProfileLink();
+        }
+
+        // Copy profile link to clipboard
+        function copyProfileLink() {
+            const linkInput = document.getElementById('profile-link-input');
+            const copySuccess = document.getElementById('copy-success');
+            
+            linkInput.select();
+            linkInput.setSelectionRange(0, 99999); // For mobile devices
+            
+            try {
+                navigator.clipboard.writeText(linkInput.value).then(() => {
+                    copySuccess.classList.add('show');
+                    setTimeout(() => {
+                        copySuccess.classList.remove('show');
+                    }, 3000);
+                });
+            } catch (err) {
+                // Fallback for older browsers
+                document.execCommand('copy');
+                copySuccess.classList.add('show');
+                setTimeout(() => {
+                    copySuccess.classList.remove('show');
+                }, 3000);
+            }
         }
 
         // Send doctor profile link via WhatsApp
@@ -1580,6 +1809,10 @@
                         <i class="fab fa-whatsapp"></i> WhatsApp पर अपॉइंटमेंट बुक करें
                     </button>
                     
+                    <button class="form-close-btn" onclick="closePatientModal()">
+                        <i class="fas fa-times"></i> बंद करें
+                    </button>
+                    
                     <p style="margin-top: 15px; font-size: 14px; color: #666; text-align: center;">
                         <i class="fas fa-info-circle"></i> बटन पर क्लिक करने पर WhatsApp खुल जाएगा और सभी जानकारी भेज दी जाएगी।
                     </p>
@@ -1588,6 +1821,10 @@
             
             modal.classList.add('active');
             selectGender('male'); // Default selection
+            
+            // Set minimum date for appointment (today)
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('appointment-date').min = today;
         }
 
         // Select gender
@@ -1708,6 +1945,7 @@ ${name}`;
             document.querySelector('.search-bar').addEventListener('input', function(e) {
                 const searchTerm = e.target.value.toLowerCase();
                 const doctorCards = document.querySelectorAll('.doctor-card');
+                let found = false;
                 
                 doctorCards.forEach(card => {
                     const doctorName = card.querySelector('.doctor-name').textContent.toLowerCase();
@@ -1718,10 +1956,27 @@ ${name}`;
                         doctorSpecialty.includes(searchTerm) || 
                         doctorCity.includes(searchTerm)) {
                         card.style.display = 'block';
+                        found = true;
                     } else {
                         card.style.display = 'none';
                     }
                 });
+                
+                // Show/hide no doctors message
+                const noDoctorsMessage = document.getElementById('no-doctors');
+                if (!found && searchTerm) {
+                    noDoctorsMessage.style.display = 'block';
+                    noDoctorsMessage.innerHTML = `
+                        <i class="fas fa-search"></i>
+                        <h3>'${searchTerm}' के लिए कोई डॉक्टर नहीं मिला</h3>
+                        <p>कृपया दूसरा नाम या शब्द खोजें।</p>
+                        <button class="appointment-btn" onclick="document.querySelector('.search-bar').value=''; setupEventListeners(); renderDoctors();" style="max-width: 200px; margin: 20px auto;">खोज हटाएं</button>
+                    `;
+                } else if (!found) {
+                    noDoctorsMessage.style.display = 'block';
+                } else {
+                    noDoctorsMessage.style.display = 'none';
+                }
             });
             
             // Close modals when clicking outside
@@ -1751,7 +2006,60 @@ ${name}`;
             
             // Initialize city dropdown
             populateCities();
+            
+            // Mark selected items in dropdowns
+            updateDropdownSelections();
         }
+        
+        // Update dropdown selections
+        function updateDropdownSelections() {
+            // Mark selected district
+            document.querySelectorAll('#district-dropdown .dropdown-item').forEach(item => {
+                if (item.textContent === filters.district || (!filters.district && item.textContent === 'सभी जिले')) {
+                    item.classList.add('selected');
+                }
+            });
+            
+            // Mark selected city
+            document.querySelectorAll('#city-dropdown .dropdown-item').forEach(item => {
+                if (item.textContent === filters.city || (!filters.city && item.textContent === 'सभी शहर')) {
+                    item.classList.add('selected');
+                }
+            });
+            
+            // Mark selected specialty
+            document.querySelectorAll('#specialty-dropdown .dropdown-item').forEach(item => {
+                if (item.textContent === filters.specialty || (!filters.specialty && item.textContent === 'सभी विशेषताएं')) {
+                    item.classList.add('selected');
+                }
+            });
+            
+            // Mark selected fee range
+            document.querySelectorAll('#fees-dropdown .dropdown-item').forEach(item => {
+                if (item.textContent === filters.feeRange || (!filters.feeRange && item.textContent === 'सभी फीस')) {
+                    item.classList.add('selected');
+                }
+            });
+        }
+        
+        // Call updateDropdownSelections when filters change
+        const originalSelectFilter = window.selectFilter;
+        window.selectFilter = function(type, value) {
+            originalSelectFilter(type, value);
+            updateDropdownSelections();
+        };
+        
+        const originalRemoveFilter = window.removeFilter;
+        window.removeFilter = function(type) {
+            originalRemoveFilter(type);
+            updateDropdownSelections();
+        };
+        
+        const originalClearAllFilters = window.clearAllFilters;
+        window.clearAllFilters = function() {
+            originalClearAllFilters();
+            updateDropdownSelections();
+        };
     </script>
 </body>
-</html>
+    </html>
