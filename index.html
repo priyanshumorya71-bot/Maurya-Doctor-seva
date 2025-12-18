@@ -172,27 +172,34 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 0;
+            flex-wrap: wrap;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             text-decoration: none;
             color: var(--dark-color);
+            flex: 1;
+            min-width: 200px;
         }
 
         .logo i {
             color: var(--primary-color);
-            font-size: 28px;
+            font-size: 50px;
         }
 
         .logo h1 {
-            font-size: 24px;
+            font-size: 25px;
+            white-space: nowrap;
+            margin-right:90px;
         }
 
         .logo span {
             color: var(--secondary-color);
+            margin-left:0px;
+            
         }
 
         /* =========== MOBILE MENU BUTTON =========== */
@@ -204,13 +211,14 @@
             color: var(--dark-color);
             cursor: pointer;
             padding: 10px;
+            margin-right: 10px;
         }
 
         /* =========== SEARCH BAR =========== */
         .search-container {
             flex-grow: 1;
             max-width: 500px;
-            margin: 0 30px;
+            margin: 0 20px;
             position: relative;
         }
 
@@ -1277,24 +1285,15 @@
         }
 
         /* =========== RESPONSIVE DESIGN =========== */
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .header-container {
-                flex-direction: row;
-                gap: 15px;
-            }
-
-            .search-container {
-                display: none;
-            }
-
+        @media (max-width: 992px) {
             .categories-container {
                 flex-direction: column;
             }
-
+            
+            .category-box {
+                width: 100%;
+            }
+            
             .doctor-header {
                 flex-direction: column;
                 align-items: center;
@@ -1303,7 +1302,7 @@
             
             .form-row {
                 flex-direction: column;
-                gap: 0;
+                gap: 10px;
             }
             
             .footer-container {
@@ -1320,6 +1319,7 @@
             .modal-actions {
                 width: 100%;
                 justify-content: center;
+                flex-wrap: wrap;
             }
             
             .link-display {
@@ -1327,9 +1327,78 @@
             }
         }
         
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-container {
+                padding: 10px 0;
+            }
+            
+            .logo {
+                min-width: auto;
+                flex: 0 1 auto;
+            }
+            
+            .logo i {
+                font-size: 28px;
+            }
+            
+            .logo h1 {
+                font-size: 18px;
+            }
+            
+            /* SEARCH BAR को मोबाइल पर दिखाएं */
+            .search-container {
+                display: block;
+                order: 3;
+                flex: 1 0 100%;
+                margin: 15px 0 0 0;
+                max-width: 100%;
+            }
+            
+            .search-bar {
+                padding: 10px 15px 10px 40px;
+                font-size: 14px;
+            }
+            
+            .doctors-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .doctor-card {
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 16px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+            }
+            
+            .doctor-name {
+                font-size: 18px;
+            }
+            
+            .modal-doctor-image {
+                width: 120px;
+                height: 120px;
+            }
+        }
+        
         @media (min-width: 769px) {
             .search-container {
                 display: block;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
             }
         }
         
@@ -1372,7 +1441,7 @@
                 <i class="fas fa-bars"></i>
             </button>
             
-            <a href="/" class="logo">
+            <a class="logo">
                 <i class="fas fa-stethoscope"></i>
                 <h1>Maurya <span>Doctor Seva</span></h1>
             </a>
@@ -1476,7 +1545,8 @@
             
             <p><strong>Maurya Doctor Seva</strong> बिहार और उत्तर प्रदेश के विभिन्न जिलों में ऑनलाइन डॉक्टर अपॉइंटमेंट बुक करने की सुविधा प्रदान करता है। हमारा उद्देश्य है कि रोगी अपने नजदीकी बेहतरीन डॉक्टरों तक आसानी से पहुँच सकें और घर बैठे अपॉइंटमेंट बुक कर सकें।</p>
             
-
+            <h3>Maurya Doctor Seva का उपयोग कैसे करें?</h3>
+            <ol>
                 <li>अपने जिले और शहर का चयन करें</li>
                 <li>डॉक्टर की विशेषता चुनें (हृदय रोग, स्त्री रोग, बाल रोग, आँख, त्वचा, हड्डी रोग)</li>
                 <li>उपलब्ध डॉक्टर्स की सूची देखें</li>
@@ -1576,6 +1646,15 @@
             </div>
             
             <div class="mobile-menu-items">
+                <!-- मोबाइल मेनू में भी सर्च बार -->
+                <div style="padding: 15px 20px; border-bottom: 1px solid #f0f0f0;">
+                    <div style="position: relative;">
+                        <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #a18d7a; z-index: 1;"></i>
+                        <input type="text" class="mobile-search-bar" placeholder="डॉक्टर खोजें..." 
+                               style="width: 100%; padding: 10px 15px 10px 40px; border-radius: 25px; border: 1px solid #e3e6ef; font-size: 14px; background-color: #f8fafc;">
+                    </div>
+                </div>
+                
                 <a href="#" onclick="showAboutPage()" class="mobile-menu-item">
                     <i class="fas fa-info-circle"></i>
                     <span>About Us</span>
@@ -1763,13 +1842,13 @@
         const doctors = [
             {
                 id: 1,
-                name: "डॉ. एम. एस. अहमद",
+                name: "Dr. M.S.Ahmad",
                 specialty: "होम्योपैथिक फिजिशियन",
                 qualifications: "BHMS, MD (Homeopathy)",
                 expertise: ["होम्योपैथिक उपचार", "क्रॉनिक रोग", "एलर्जी उपचार", "त्वचा संबंधी समस्याएं"],
                 experience: "5 वर्ष",
-                city: "सिवान",
-                district: "सिवान",
+                city: "Siwan",
+                district: "Siwan",
                 fees: 500,
                 number: 1,
                 image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop",
@@ -1781,13 +1860,13 @@
             },
             {
                 id: 2,
-                name: "डॉ.प्रदीप कुमार सिंह",
+                name: "Dr. Pradip Kumar Shingh",,
                 specialty: "नवजात शिशु और बाल रोग विशेषज्ञ",
                 qualifications: "MBBS, MD (Pediatrics)",
                 expertise: ["नवजात शिशु देखभाल", "बाल पोषण", "टीकाकरण", "श्वसन संक्रमण"],
                 experience: "10 वर्ष",
-                city: "सिवान",
-                district: "सिवान",
+                city: "Siwan",
+                district: "Siwan",
                 fees: 400,
                 number: 2,
                 image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop",
@@ -1799,13 +1878,13 @@
             },
             {
                 id: 3,
-                name: "डॉ. अमित वर्मा",
+                name: "Dr. Amit Verma",
                 specialty: "बाल रोग विशेषज्ञ",
                 qualifications: "MBBS, DCH (Child Health)",
                 expertise: ["बच्चों के रोग", "नवजात शिशु देखभाल", "टीकाकरण", "बाल पोषण", "श्वसन संक्रमण", "पाचन समस्याएं", "बच्चों में एलर्जी", "बाल विकास मूल्यांकन"],
                 experience: "10 वर्ष",
-                city: "छपरा",
-                district: "सरन",
+                city: "Siwan",
+                district: "Siwan",
                 fees: 300,
                 number: 3,
                 image: "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=400&h=400&fit=crop",
@@ -1817,13 +1896,13 @@
             },
             {
                 id: 4,
-                name: "डॉ. सुनील यादव",
+                name: "Dr. Sunil Yadav",
                 specialty: "आँखों के डॉक्टर",
                 qualifications: "MBBS, MS (Ophthalmology)",
                 expertise: ["नेत्र रोग", "मोतियाबिंद सर्जरी", "लेसिक सर्जरी", "ग्लूकोमा", "रेटिना रोग", "बच्चों की आँखों की समस्याएं", "चश्मा परीक्षण", "कॉन्टैक्ट लेंस फिटिंग"],
                 experience: "8 वर्ष",
-                city: "गोरखपुर",
-                district: "गोरखपुर",
+                city: "Siwan",
+                district: "Siwan",
                 fees: 350,
                 number: 4,
                 image: "https://images.unsplash.com/photo-1594824434340-7e7dfc37cabb?w=400&h=400&fit=crop",
@@ -1835,13 +1914,13 @@
             },
             {
                 id: 5,
-                name: "डॉ. रीना शर्मा",
+                name: "Dr. Rina sharma",
                 specialty: "त्वचा रोग विशेषज्ञ",
                 qualifications: "MBBS, MD (Dermatology)",
                 expertise: ["त्वचा रोग", "मुहांसे", "एक्जिमा", "सोरायसिस", "त्वचा कैंसर", "एलर्जी", "बालों के रोग", "कॉस्मेटिक डर्मेटोलॉजी", "लेजर ट्रीटमेंट"],
                 experience: "7 वर्ष",
-                city: "कानपुर",
-                district: "कानपुर नगर",
+                city: "Siwan",
+                district: "Siwan",
                 fees: 600,
                 number: 5,
                 image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop",
@@ -1853,13 +1932,13 @@
             },
             {
                 id: 6,
-                name: "डॉ. राजन मान सिंह",
+                name: "Dr. Rajan Maan Singh",
                 specialty: "नवजात शिशु और बाल रोग विशेषज्ञ",
                 qualifications: "MBBS, DNB (Pediatrics)",
                 expertise: ["नवजात शिशु देखभाल", "बाल रोग", "पोषण परामर्श", "आपातकालीन बाल चिकित्सा"],
                 experience: "14 वर्ष",
-                city: "पटना",
-                district: "पटना",
+                city: "Siwan",
+                district: "Siwan",
                 fees: 700,
                 number: 6,
                 image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop",
@@ -1871,13 +1950,13 @@
             },
             {
                 id: 7,
-                name: "डॉ. मो. मुज़म्मिल",
+                name: "Dr. M. Mujnmmil",
                 specialty: "जनरल सर्जन (MBBS, MS, DNB)",
                 qualifications: "MBBS, MS (General Surgery), DNB",
                 expertise: [ "जनरल सर्जरी", "लैप्रोस्कोपिक सर्जरी","सभी प्रकार के पेट का ऑपरेशन ","पेट दर्द और पेट की सभी बीमारियों का इलाज "," लेजर द्वारा ऑपरेशन ","पित्त की थैली में पथरी","अपेंडिक्स", " हार्निया","छाती में गांठ ","लिपोमा " , "बवासीर " ," सिस्ट " , "हाइड्रोशील " ,"फिशर" ,"गिल्टी का ऑपरेशन " , "बच्चेदानी का ऑपरेशन " ,"किडनी में पथरी " ,"पैर की नसों का ऑपरेशन ","मस्सा का ऑपरेशन ","खतना का ऑपरेशन ", "दाग का प्लास्टिक सर्जरी " ],
                 experience: "11 वर्ष",
-                city: "सिवान",
-                district: "सिवान",
+                city: "Siwan",
+                district: "Siwan",
                 fees: 500,
                 number: 7,
                 image: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=400&fit=crop",
@@ -1889,13 +1968,13 @@
             },
             {
                 id: 8,
-                name: "डॉ. वी. के. सिंह",
+                name: "Dr. V. K. Singh",
                 specialty: "हड्डी रोग विशेषज्ञ (ऑर्थोपेडिक)",
                 qualifications: "MBBS, MS (Ortho)",
                 expertise: [ "हड्डी एवं जोड़ रोग", "आर्थ्रोस्कोपी","आर्थ्रोप्लास्टी","फ्रैक्चर ट्रीटमेंट"],
                 experience: "10 year",
-                city: "सिवान",
-                district: "सिवान",
+                city: "Siwan",
+                district: "Siwan",
                 fees: 500,
                 number:8,
                 image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop",
@@ -1907,13 +1986,13 @@
             },
             {
                 id: 9,
-                name: "डॉ. राशीद शाहिद",
+                name: "Dr. Rashid Shahid",
                 specialty: "त्वचा रोग विशेषज्ञ (Dermatologist)",
                 qualifications: "MBBS, MD (Skin & V.D.)",
                 expertise: ["त्वचा रोग उपचार","बाल झड़ने का इलाज","कॉस्मेटिक ट्रीटमेंट","एक्ने एवं पिंपल्स उपचार","सोरायसिस एवं एक्जिमा","सफेद दाग (विटिलिगो)","मस्से एवं स्किन सर्जरी","हेयर PRP थेरेपी","माइक्रोनिडलिंग / डर्मारोलर","स्किन ग्लो पील्स"],
                 experience: " 5 year",
-                city: "सिवान",
-                district: "सिवान",
+                city: "Siwan",
+                district: "Siwan",
                 fees: 400,
                 number: 9,
                 image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop",
@@ -1925,13 +2004,13 @@
             },
             {
                 id: 10,
-                name: "डॉ. प्रकाश कुमार",
+                name: "Dr. Prakash Kumar",
                 specialty: "हड्डी रोग एवं जोड़ रोग विशेषज्ञ (ऑर्थोपेडिक)",
                 qualifications: "MBBS (C.N.M.C.H, Kolkata), MS (Ortho), MCh (Ortho)",
                 expertise: ["हड्डी रोग उपचार", " जोड़ प्रत्यारोपण" , "घुटना एवं कूल्हा रिप्लेसमेंट", "आर्थ्रोस्कोपी", "स्पोर्ट्स इंजरी", "ट्रॉमा सर्जरी"],
                 experience: "5 वर्ष",
-                city: "सिवान",
-                district: "सिवान",
+                city: "Siwan",
+                district: "Siwan",
                 fees: 500,
                 number: 10,
                 image: "https://images.unsplash.com/photo-1606813902779-20a8c7c9a3c2?w=400&h=400&fit=crop",
@@ -1943,13 +2022,13 @@
             },
             {
                 id: 11,
-                name: "डॉ. रामेश्वर कुमार",
+                name: "Dr. Rameswar Kumar",
                 specialty: "हड्डी एवं जोड़ रोग विशेषज्ञ (ऑर्थोपेडिक सर्जन)",
                 qualifications: "MBBS, MS (Ortho)",
                 expertise: ["जॉइंट रिप्लेसमेंट सर्जरी","घुटना रिप्लेसमेंट","हिप रिप्लेसमेंट","हड्डी फ्रैक्चर इलाज", "ऑर्थोपेडिक सर्जरी"],
                 experience: "10 वर्ष",
-                city: "सिवान",
-                district: "सिवान",
+                city: "Siwan",
+                district: "Siwan",
                 fees: 500,
                 number: 11,
                 image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=400&fit=crop",
@@ -1961,13 +2040,13 @@
             },
             {
                 id: 12,
-                name: "डॉ. सुमित कुमार सिंह",
+                name: "Dr. Sumit Kumar Shingh",,
                 specialty: "ऑर्थोपेडिक सर्जन",
                 qualifications: "MBBS, D.Ortho",
                 expertise: ["हड्डी दर्द", "जोड़ दर्द", "कमर एवं नस रोग", "फ्रैक्चर इलाज"],
                 experience: "5 वर्ष",
-                city: "सिवान",
-                district: "सिवान",
+                city: "Siwan",
+                district: "Siwan",
                 fees: 500,
                 number: 12,
                 image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=400&fit=crop",
@@ -1979,13 +2058,13 @@
             },
             {
                 id: 13,
-                name: "डॉ. मुकेश कुमार",
+                name: "Dr. Mukesh kumar",
                 specialty: "जनरल सर्जन",
                 qualifications: "MBBS, MS (Surgery)",
                 expertise: ["जनरल सर्जरी", "ट्रॉमा केयर", "दुर्घटना इलाज"],
                 experience: "5 वर्ष",
-                city: "सिवान",
-                district: "सिवान",
+                city: "Siwan",
+                district: "Siwan",
                 fees: 500,
                 number: 13,
                 image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop",
@@ -1997,13 +2076,13 @@
             },
             {
                 id: 14,
-                name: "डॉ. प्रियंका",
+                name: "Dr. priyanka",
                 specialty: "स्त्री एवं प्रसूति रोग विशेषज्ञ",
                 qualifications: "MBBS, DGO",
                 expertise: ["महिला रोग इलाज","डिलीवरी","प्रसूति परामर्श"],
                 experience: "5 वर्ष",
-                city: "सिवान",
-                district: "सिवान",
+                city: "Siwan",
+                district: "Siwan",
                 fees: 500,
                 number: 14,
                 image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop",
@@ -2015,13 +2094,13 @@
             },
             {
                 id: 15,
-                name: "डॉ. वी. चौधरी",
+                name: "Dr. V. Chaudhary",
                 specialty: "डेंटल एवं ओरल सर्जन",
                 qualifications: "B.D.S. (Cal)",
                 expertise: ["दांत दर्द का इलाज", "दांत निकालना", "दांत भरना", "मसूड़ों का इलाज", "ओरल सर्जरी"],
                 experience: "5 वर्ष",
-                city: "सिवान",
-                district: "सिवान",
+                city: "Siwan",
+                district: "Siwan",
                 fees: 500,
                 number: 15,
                 image: "https://images.unsplash.com/photo-1606813902917-8e4a3c1b1b39?w=400&h=400&fit=crop",
@@ -2035,7 +2114,7 @@
 
         // Data for districts and their cities
         const districtCityMap = {
-            "सिवान": ["सिवान", "सिवान शहर", "महाराजगंज", "हसनपुरा", "नरही", "भगवानपुर हट"],
+            "Siwan": ["Siwan", "महाराजगंज", "हसनपुरा", "नरही", "भगवानपुर हट"],
             "गोपालगंज": ["गोपालगंज", "गोपालगंज शहर", "मीरगंज", "भोरे", "उच्चाकागा", "सिद्धवलिया"],
             "सरन": ["छपरा", "छपरा शहर", "मारहौरा", "गरखा", "ईश्वरपुर", "जलालपुर"],
             "पटना": ["पटना", "पटना शहर", "दानापुर", "फुलवारीशरीफ", "बिहटा", "मसौढ़ी"],
@@ -2092,6 +2171,18 @@
             if (searchParam) {
                 document.querySelector('.search-bar').value = decodeURIComponent(searchParam);
                 performSearch(decodeURIComponent(searchParam));
+            }
+            
+            // Setup mobile search
+            const mobileSearchBar = document.querySelector('.mobile-search-bar');
+            if (mobileSearchBar) {
+                mobileSearchBar.addEventListener('input', function(e) {
+                    const searchTerm = e.target.value.trim();
+                    if (searchTerm) {
+                        performSearch(searchTerm);
+                        toggleMobileMenu(); // Close mobile menu after search
+                    }
+                });
             }
         });
 
@@ -3024,4 +3115,4 @@ ${name}
         }
     </script>
 </body>
-    </html>
+</html>
