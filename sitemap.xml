@@ -1,30 +1,224 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  
+  <!-- =========== MAIN PAGES =========== -->
   <url>
     <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/</loc>
     <lastmod>2024-03-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://i.ibb.co/N6gFcnBR/Picsart-25-12-17-18-54-57-108.jpg</image:loc>
+      <image:title>Maurya Doctor Seva - Online Doctor Appointment</image:title>
+      <image:caption>Book doctor appointment online in Bihar and Uttar Pradesh</image:caption>
+    </image:image>
   </url>
   
-  <!-- डॉक्टर प्रोफाइल पेज -->
+  <!-- =========== DOCTOR PROFILE PAGES (INDIVIDUAL URLs) =========== -->
+  
+  <!-- डॉ. एम. एस. अहमद -->
   <url>
     <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?doctor=1</loc>
     <lastmod>2024-03-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&amp;h=400&amp;fit=crop</image:loc>
+      <image:title>डॉ. एम. एस. अहमद - होम्योपैथिक फिजिशियन</image:title>
+      <image:caption>Homoeopathic Physician in Siwan, Bihar</image:caption>
+    </image:image>
   </url>
   
+  <!-- डॉ. प्रदीप कुमार सिंह -->
   <url>
     <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?doctor=2</loc>
     <lastmod>2024-03-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&amp;h=400&amp;fit=crop</image:loc>
+      <image:title>डॉ. प्रदीप कुमार सिंह - नवजात शिशु और बाल रोग विशेषज्ञ</image:title>
+      <image:caption>Pediatrician in Siwan, Bihar</image:caption>
+    </image:image>
   </url>
   
-  <!-- सभी 15 डॉक्टर्स के लिए ऐसे ही URL जोड़ें -->
+  <!-- डॉ. अमित वर्मा -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?doctor=3</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=400&amp;h=400&amp;fit=crop</image:loc>
+      <image:title>डॉ. अमित वर्मा - बाल रोग विशेषज्ञ</image:title>
+      <image:caption>Child Specialist in Chhapra, Saran</image:caption>
+    </image:image>
+  </url>
   
-  <!-- सर्च पेज -->
+  <!-- डॉ. सुनील यादव -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?doctor=4</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1594824434340-7e7dfc37cabb?w=400&amp;h=400&amp;fit=crop</image:loc>
+      <image:title>डॉ. सुनील यादव - आँखों के डॉक्टर</image:title>
+      <image:caption>Eye Specialist in Gorakhpur, Uttar Pradesh</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- डॉ. रीना शर्मा -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?doctor=5</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&amp;h=400&amp;fit=crop</image:loc>
+      <image:title>डॉ. रीना शर्मा - त्वचा रोग विशेषज्ञ</image:title>
+      <image:caption>Dermatologist in Kanpur, Uttar Pradesh</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- डॉ. राजन मान सिंह -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?doctor=6</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&amp;h=400&amp;fit=crop</image:loc>
+      <image:title>डॉ. राजन मान सिंह - नवजात शिशु और बाल रोग विशेषज्ञ</image:title>
+      <image:caption>Pediatrician in Patna, Bihar</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- डॉ. मो. मुज़म्मिल -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?doctor=7</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&amp;h=400&amp;fit=crop</image:loc>
+      <image:title>डॉ. मो. मुज़म्मिल - जनरल सर्जन</image:title>
+      <image:caption>General Surgeon in Siwan, Bihar</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- डॉ. वी. के. सिंह -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?doctor=8</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&amp;h=400&amp;fit=crop</image:loc>
+      <image:title>डॉ. वी. के. सिंह - हड्डी रोग विशेषज्ञ</image:title>
+      <image:caption>Orthopedic Specialist in Siwan, Bihar</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- डॉ. राशीद शाहिद -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?doctor=9</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&amp;h=400&amp;fit=crop</image:loc>
+      <image:title>डॉ. राशीद शाहिद - त्वचा रोग विशेषज्ञ</image:title>
+      <image:caption>Dermatologist in Siwan, Bihar</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- डॉ. प्रकाश कुमार -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?doctor=10</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1606813902779-20a8c7c9a3c2?w=400&amp;h=400&amp;fit=crop</image:loc>
+      <image:title>डॉ. प्रकाश कुमार - हड्डी रोग एवं जोड़ रोग विशेषज्ञ</image:title>
+      <image:caption>Orthopedic and Joint Specialist in Siwan, Bihar</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- डॉ. रामेश्वर कुमार -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?doctor=11</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&amp;h=400&amp;fit=crop</image:loc>
+      <image:title>डॉ. रामेश्वर कुमार - हड्डी एवं जोड़ रोग विशेषज्ञ</image:title>
+      <image:caption>Orthopedic Surgeon in Siwan, Bihar</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- डॉ. सुमित कुमार सिंह -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?doctor=12</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&amp;h=400&amp;fit=crop</image:loc>
+      <image:title>डॉ. सुमित कुमार सिंह - ऑर्थोपेडिक सर्जन</image:title>
+      <image:caption>Orthopedic Surgeon in Siwan, Bihar</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- डॉ. मुकेश कुमार -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?doctor=13</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&amp;h=400&amp;fit=crop</image:loc>
+      <image:title>डॉ. मुकेश कुमार - जनरल सर्जन</image:title>
+      <image:caption>General Surgeon in Siwan, Bihar</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- डॉ. प्रियंका -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?doctor=14</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&amp;h=400&amp;fit=crop</image:loc>
+      <image:title>डॉ. प्रियंका - स्त्री एवं प्रसूति रोग विशेषज्ञ</image:title>
+      <image:caption>Gynecologist in Siwan, Bihar</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- डॉ. वी. चौधरी -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?doctor=15</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1606813902917-8e4a3c1b1b39?w=400&amp;h=400&amp;fit=crop</image:loc>
+      <image:title>डॉ. वी. चौधरी - डेंटल एवं ओरल सर्जन</image:title>
+      <image:caption>Dental and Oral Surgeon in Siwan, Bihar</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- =========== SEARCH TERM PAGES (HIGH TRAFFIC KEYWORDS) =========== -->
+  
+  <!-- Maurya Doctor Seva related -->
   <url>
     <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=maurya+doctor+seva</loc>
     <lastmod>2024-03-10</lastmod>
@@ -33,16 +227,219 @@
   </url>
   
   <url>
-    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=डॉक्टर+प्रकाश+कुमार</loc>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=मौर्य+डॉक्टर+सेवा</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Doctor names -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=डॉ+प्रकाश+कुमार</loc>
     <lastmod>2024-03-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=dr+prakash+kumar</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=डॉ+एम+एस+अहमद</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=डॉ+प्रदीप+कुमार+सिंह</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- City based searches -->
+  <url>
     <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=सिवान+डॉक्टर</loc>
     <lastmod>2024-03-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=siwan+doctor</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=पटना+डॉक्टर</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=patna+doctor</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=छपरा+डॉक्टर</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=chhapra+doctor</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Specialty based searches -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=हड्डी+रोग+विशेषज्ञ+सिवान</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=orthopedic+doctor+siwan</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=त्वचा+रोग+विशेषज्ञ+सिवान</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=dermatologist+siwan</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=होम्योपैथिक+डॉक्टर+सिवान</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Hospital names -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=मौर्य+हॉस्पिटल</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=maurya+hospital</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=सिवान+नर्सिंग+होम</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=समीर+सनराइज+हॉस्पिटल</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=प्रकाश+हॉस्पिटल</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=श्री+साईं+हॉस्पिटल</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- General doctor appointment searches -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=डॉक्टर+अपॉइंटमेंट</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=doctor+appointment</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=ऑनलाइन+डॉक्टर+अपॉइंटमेंट</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=online+doctor+appointment</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- State based searches -->
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=बिहार+डॉक्टर</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=bihar+doctor</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=उत्तर+प्रदेश+डॉक्टर</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/?search=uttar+pradesh+doctor</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
 </urlset>
