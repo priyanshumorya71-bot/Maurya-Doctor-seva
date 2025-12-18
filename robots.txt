@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /private/
 
 Sitemap: https://priyanshumorya71-bot.github.io/Maurya-Doctor-seva/sitemap.xml
